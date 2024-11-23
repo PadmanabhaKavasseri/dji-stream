@@ -22,10 +22,10 @@
 #ifndef __APP_INFO_H__
 #define __APP_INFO_H__
 
-#define USER_APP_NAME "your_app_name"
-#define USER_APP_ID "your_app_id"
-#define USER_APP_KEY "your_app_key"
-#define USER_APP_LICENSE "your_app_license"
-#define USER_DEVELOPER_ACCOUNT "your_developer_account"
+#define USER_APP_NAME "QC Dock 2"
+#define USER_APP_ID "154383"
+#define USER_APP_KEY "83d48916afec015a407e90b650ca64e"
+#define USER_APP_LICENSE "OZi6DIE4h7guFjW7rpecD/n2J/Lk+uDLIKLrEzB/Uc8BtH4fPleRZ2HOzuII+2i0mUOpu+BVF0Dczp1rSkjR7rHLqIwCzC5pznihu0QFgqC3X9XDZBJ6QBcQ/I1eYQIRxFNRJ+zVH0PahCi4NRYmAiuCpo0CbuZatQPD5xF3yvWZ+VRU9xW3AQOfSLK7G0LwQjs15VtG8VBcX84UT+t5etATd58JziLUUXtbU6N/ik22o6BdYmCledaHPCRhMn6ct32ps0ZdbTt7J3kVGNpSnK82k9i6ch7scDK/baltTmKJlc708T+BwDSgiRicgp5KonoTKhk3K5VKclOjkfDUTg=="
+#define USER_DEVELOPER_ACCOUNT "pkavasse@quicinc.com"
 
 #endif

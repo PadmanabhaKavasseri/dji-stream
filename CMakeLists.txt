@@ -47,7 +47,7 @@ else ()
 endif ()
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third_party)
-find_package(FFMPEG QUIET)
+find_package(FFMPEG REQUIRED) 
 if (FFMPEG_FOUND)
     message(STATUS "Found FFMPEG installed in the system")
     message(STATUS " - Includes: ${FFMPEG_INCLUDE_DIR}")
@@ -68,10 +68,27 @@ if (FFMPEG_FOUND)
     endif ()
 
     include_directories(${FFMPEG_INCLUDE_DIR})
+
+    # Manually add libraries to link
+    link_libraries(${FFMPEG_LIBRARIES})
     add_definitions(-DFFMPEG_INSTALLED)
+
 else ()
     message(STATUS "\nDID NOT FIND FFMPEG IN THE SYSTEM, SOME EXECUTABLE FILES WILL NOT BE BUILT!!\n")
 endif (FFMPEG_FOUND)
+
+# Find GStreamer
+#find_package(PkgConfig REQUIRED)
+#pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0)
+
+#include_directories(${GSTREAMER_INCLUDE_DIRS})
+#link_directories(${GSTREAMER_LIBRARY_DIRS})
+
+# Adding the GStreamer libraries to the link libraries
+#link_libraries(${GSTREAMER_LIBRARIES})
+
+
+
 
 if (OpenCV_FOUND AND FFMPEG_FOUND)
     file(GLOB_RECURSE MODULE_SAMPLE_SRC
@@ -98,6 +115,7 @@ if (OpenCV_FOUND AND FFMPEG_FOUND)
     add_executable(pressure_test examples/test/pressure_test.cc)
     target_link_libraries(pressure_test ${SAMPLE_LIB})
 endif ()
+
 
 add_library(${SAMPLE_LIB} STATIC ${MODULE_SAMPLE_SRC})
 

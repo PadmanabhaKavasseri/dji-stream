@@ -32,12 +32,30 @@
 #include "stream_decoder.h"
 #include "stream_processor_thread.h"
 
+#include <fstream>
+// #include <gst/gst.h>
+// #include <glib.h>
+
+#include <libavformat/avformat.h>
+#include <libavcodec/avcodec.h>
+#include <libavutil/avutil.h>
+#include <libavutil/imgutils.h>
+
+#include <libavutil/frame.h>
+#include <libavutil/mem.h>
+#include <libavcodec/avcodec.h>
+
+
 namespace edge_app {
 
 class LiveviewSample {
    public:
     explicit LiveviewSample(const std::string& name);
-    ~LiveviewSample() {}
+    ~LiveviewSample() {
+        // if (h264_file_.is_open()) {
+        //     h264_file_.close();
+        // }
+    }
 
     edge_sdk::ErrorCode Init(edge_sdk::Liveview::CameraType type,
                              edge_sdk::Liveview::StreamQuality quality,
@@ -51,6 +69,10 @@ class LiveviewSample {
     uint32_t GetStreamBitrate() const {
         return stream_bitrate_kbps_.load();
     }
+
+    void streamData(const uint8_t* data, size_t len);
+
+    // std::ofstream h264_file_;
 
    private:
     edge_sdk::ErrorCode StreamCallback(const uint8_t* data, size_t len);

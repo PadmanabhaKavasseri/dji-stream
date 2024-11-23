@@ -25,6 +25,9 @@
 
 #include "liveview/liveview.h"
 
+#include <iostream>
+#include <fstream>
+
 #define BITRATE_CALCULATE_BITS_PER_BYTE 8
 #define BITRATE_CALCULATE_INTERVAL_TIME_MS 2000
 
@@ -32,7 +35,39 @@ using namespace edge_sdk;
 
 namespace edge_app {
 
+void PrintNALUnitType(const uint8_t* data, size_t len) {
+    for (size_t i = 0; i < len - 4; ++i) {
+        if ((data[i] == 0x00 && data[i + 1] == 0x00 && data[i + 2] == 0x01) ||
+            (data[i] == 0x00 && data[i + 1] == 0x00 && data[i + 2] == 0x00 && data[i + 3] == 0x01)) {
+            size_t offset = (data[i + 2] == 0x01) ? i + 3 : i + 4;
+            uint8_t nal_unit_header = data[offset];
+            uint8_t nal_unit_type = nal_unit_header & 0x1F; // Lower 5 bits
+            std::cout << "NAL Unit Type: " << static_cast<int>(nal_unit_type) << std::endl;
+        }
+    }
+}
+
+bool IsH264Stream(const uint8_t* data, size_t len) {
+    // Check for start codes in the stream
+    for (size_t i = 0; i < len - 4; ++i) {
+        // Look for the 3-byte or 4-byte start code
+        if ((data[i] == 0x00 && data[i + 1] == 0x00 && data[i + 2] == 0x01) ||
+            (data[i] == 0x00 && data[i + 1] == 0x00 && data[i + 2] == 0x00 && data[i + 3] == 0x01)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void LiveviewSample::streamData(const uint8_t* data, size_t len){
+    // auto pkt = av_packet_alloc();
+}
+
 LiveviewSample::LiveviewSample(const std::string& name) {
+    // h264_file_.open("output.h264", std::ios::binary);
+    // if (!h264_file_.is_open()) {
+    //     std::cerr << "Failed to open file for writing!" << std::endl;
+    // }
     liveview_ = edge_sdk::CreateLiveview();
     liveview_status_ = 0;
 }
@@ -40,8 +75,19 @@ LiveviewSample::LiveviewSample(const std::string& name) {
 ErrorCode LiveviewSample::StreamCallback(const uint8_t* data, size_t len) {
     auto now =  std::chrono::system_clock::now();
     if (stream_processor_thread_) {
+        // std::cout << "in sample_liveview.cc is h264: " << IsH264Stream(data,len) << std::endl;
+        // PrintNALUnitType(data,len);
+
         stream_processor_thread_->InputStream(data, len);
+        streamData(data,len);
     }
+
+    // Save raw H.264 data to file
+    // if (h264_file_.is_open()) {
+    //     h264_file_.write(reinterpret_cast<const char*>(data), len);
+    // } else {
+    //     std::cerr << "File not open for writing!" << std::endl;
+    // }
 
     // for bitrate calculate
     receive_stream_data_total_size_ += len;

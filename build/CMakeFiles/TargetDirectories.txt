@@ -1,0 +1,11 @@
+/home/user/Edge-SDK/build/CMakeFiles/edit_cache.dir
+/home/user/Edge-SDK/build/CMakeFiles/sample_cloud_api.dir
+/home/user/Edge-SDK/build/CMakeFiles/sample_media_file_list.dir
+/home/user/Edge-SDK/build/CMakeFiles/rebuild_cache.dir
+/home/user/Edge-SDK/build/CMakeFiles/sample_set_upload_cloud_strategy.dir
+/home/user/Edge-SDK/build/CMakeFiles/sample_read_media_file.dir
+/home/user/Edge-SDK/build/CMakeFiles/test_liveview_dual.dir
+/home/user/Edge-SDK/build/CMakeFiles/edge_sample.dir
+/home/user/Edge-SDK/build/CMakeFiles/pressure_test.dir
+/home/user/Edge-SDK/build/CMakeFiles/test_liveview.dir
+/home/user/Edge-SDK/build/CMakeFiles/sample_liveview.dir
