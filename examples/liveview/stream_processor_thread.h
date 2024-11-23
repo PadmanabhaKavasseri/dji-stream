@@ -28,8 +28,15 @@
 #include <queue>
 #include <string>
 #include <thread>
+#include <iostream>
 
 #include "error_code.h"
+
+#include <gst/gst.h>
+#include <glib.h>
+#include <gst/app/gstappsrc.h>
+#include <gst/rtsp-server/rtsp-server.h>
+
 
 namespace cv {
 class Mat;
@@ -61,6 +68,12 @@ class StreamProcessorThread {
 
     int32_t Stop();
 
+    void SetupPipeline();
+
+    void PushDataToAppsrc(const std::vector<uint8_t>& data);
+
+    void SetupRTSPServer();
+
    protected:
     enum {
         kImageQueueSizeLimit = 10,
@@ -78,6 +91,11 @@ class StreamProcessorThread {
     std::atomic<bool> processor_start_;
     std::shared_ptr<StreamDecoder> stream_decoder_;
     std::shared_ptr<ImageProcessorThread> image_processor_thread_;
+
+    GstElement *appsrc = nullptr;
+    GstPipeline *pipeline = nullptr;
+    GstRTSPServer *server = nullptr;
+    GstRTSPMediaFactory *factory = nullptr;
 };
 
 }  // namespace edge_app

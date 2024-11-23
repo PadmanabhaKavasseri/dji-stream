@@ -77,9 +77,9 @@ ErrorCode LiveviewSample::StreamCallback(const uint8_t* data, size_t len) {
     if (stream_processor_thread_) {
         // std::cout << "in sample_liveview.cc is h264: " << IsH264Stream(data,len) << std::endl;
         // PrintNALUnitType(data,len);
-
-        stream_processor_thread_->InputStream(data, len);
-        streamData(data,len);
+        std::cout << "LiveviewSample::StreamCallback: len " << len << std::endl;
+        stream_processor_thread_->InputStream(data, len);// i think this can stay the same
+        // streamData(data,len);
     }
 
     // Save raw H.264 data to file

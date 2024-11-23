@@ -78,14 +78,14 @@ else ()
 endif (FFMPEG_FOUND)
 
 # Find GStreamer
-#find_package(PkgConfig REQUIRED)
-#pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0)
 
-#include_directories(${GSTREAMER_INCLUDE_DIRS})
-#link_directories(${GSTREAMER_LIBRARY_DIRS})
+include_directories(${GSTREAMER_INCLUDE_DIRS})
+link_directories(${GSTREAMER_LIBRARY_DIRS})
 
 # Adding the GStreamer libraries to the link libraries
-#link_libraries(${GSTREAMER_LIBRARIES})
+link_libraries(${GSTREAMER_LIBRARIES})
 
 
 
