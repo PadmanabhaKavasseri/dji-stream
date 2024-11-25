@@ -25,8 +25,8 @@
 #include <chrono>
 #include <atomic>
 #include "error_code.h"
-#include "image_processor.h"
-#include "image_processor_thread.h"
+// #include "image_processor.h"
+// #include "image_processor_thread.h"
 #include "liveview.h"
 #include "logger.h"
 #include "stream_decoder.h"
@@ -90,8 +90,7 @@ class LiveviewSample {
 
 int32_t InitLiveviewSample(std::shared_ptr<LiveviewSample>& liveview_sample, edge_sdk::Liveview::CameraType type,
                            edge_sdk::Liveview::StreamQuality quality,
-                           std::shared_ptr<StreamDecoder> stream_decoder,
-                           std::shared_ptr<ImageProcessor> image_processor);
+                           std::shared_ptr<StreamDecoder> stream_decoder);
 
 }  // namespace edge_app
 

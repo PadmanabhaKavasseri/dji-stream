@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/user/Edge-SDK/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -77,6 +66,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,71 +111,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named sample_cloud_api
-
-# Build rule for target.
-sample_cloud_api: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sample_cloud_api
-.PHONY : sample_cloud_api
-
-# fast build rule for target.
-sample_cloud_api/fast:
-	$(MAKE) -f CMakeFiles/sample_cloud_api.dir/build.make CMakeFiles/sample_cloud_api.dir/build
-.PHONY : sample_cloud_api/fast
-
-#=============================================================================
-# Target rules for targets named sample_media_file_list
-
-# Build rule for target.
-sample_media_file_list: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sample_media_file_list
-.PHONY : sample_media_file_list
-
-# fast build rule for target.
-sample_media_file_list/fast:
-	$(MAKE) -f CMakeFiles/sample_media_file_list.dir/build.make CMakeFiles/sample_media_file_list.dir/build
-.PHONY : sample_media_file_list/fast
-
-#=============================================================================
-# Target rules for targets named sample_set_upload_cloud_strategy
-
-# Build rule for target.
-sample_set_upload_cloud_strategy: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sample_set_upload_cloud_strategy
-.PHONY : sample_set_upload_cloud_strategy
-
-# fast build rule for target.
-sample_set_upload_cloud_strategy/fast:
-	$(MAKE) -f CMakeFiles/sample_set_upload_cloud_strategy.dir/build.make CMakeFiles/sample_set_upload_cloud_strategy.dir/build
-.PHONY : sample_set_upload_cloud_strategy/fast
-
-#=============================================================================
-# Target rules for targets named sample_read_media_file
-
-# Build rule for target.
-sample_read_media_file: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sample_read_media_file
-.PHONY : sample_read_media_file
-
-# fast build rule for target.
-sample_read_media_file/fast:
-	$(MAKE) -f CMakeFiles/sample_read_media_file.dir/build.make CMakeFiles/sample_read_media_file.dir/build
-.PHONY : sample_read_media_file/fast
-
-#=============================================================================
-# Target rules for targets named test_liveview_dual
-
-# Build rule for target.
-test_liveview_dual: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_liveview_dual
-.PHONY : test_liveview_dual
-
-# fast build rule for target.
-test_liveview_dual/fast:
-	$(MAKE) -f CMakeFiles/test_liveview_dual.dir/build.make CMakeFiles/test_liveview_dual.dir/build
-.PHONY : test_liveview_dual/fast
-
-#=============================================================================
 # Target rules for targets named edge_sample
 
 # Build rule for target.
@@ -189,19 +124,6 @@ edge_sample/fast:
 .PHONY : edge_sample/fast
 
 #=============================================================================
-# Target rules for targets named pressure_test
-
-# Build rule for target.
-pressure_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pressure_test
-.PHONY : pressure_test
-
-# fast build rule for target.
-pressure_test/fast:
-	$(MAKE) -f CMakeFiles/pressure_test.dir/build.make CMakeFiles/pressure_test.dir/build
-.PHONY : pressure_test/fast
-
-#=============================================================================
 # Target rules for targets named test_liveview
 
 # Build rule for target.
@@ -213,100 +135,6 @@ test_liveview: cmake_check_build_system
 test_liveview/fast:
 	$(MAKE) -f CMakeFiles/test_liveview.dir/build.make CMakeFiles/test_liveview.dir/build
 .PHONY : test_liveview/fast
-
-#=============================================================================
-# Target rules for targets named sample_liveview
-
-# Build rule for target.
-sample_liveview: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sample_liveview
-.PHONY : sample_liveview
-
-# fast build rule for target.
-sample_liveview/fast:
-	$(MAKE) -f CMakeFiles/sample_liveview.dir/build.make CMakeFiles/sample_liveview.dir/build
-.PHONY : sample_liveview/fast
-
-examples/cloud_api/sample_cloud_api.o: examples/cloud_api/sample_cloud_api.cc.o
-
-.PHONY : examples/cloud_api/sample_cloud_api.o
-
-# target to build an object file
-examples/cloud_api/sample_cloud_api.cc.o:
-	$(MAKE) -f CMakeFiles/sample_cloud_api.dir/build.make CMakeFiles/sample_cloud_api.dir/examples/cloud_api/sample_cloud_api.cc.o
-.PHONY : examples/cloud_api/sample_cloud_api.cc.o
-
-examples/cloud_api/sample_cloud_api.i: examples/cloud_api/sample_cloud_api.cc.i
-
-.PHONY : examples/cloud_api/sample_cloud_api.i
-
-# target to preprocess a source file
-examples/cloud_api/sample_cloud_api.cc.i:
-	$(MAKE) -f CMakeFiles/sample_cloud_api.dir/build.make CMakeFiles/sample_cloud_api.dir/examples/cloud_api/sample_cloud_api.cc.i
-.PHONY : examples/cloud_api/sample_cloud_api.cc.i
-
-examples/cloud_api/sample_cloud_api.s: examples/cloud_api/sample_cloud_api.cc.s
-
-.PHONY : examples/cloud_api/sample_cloud_api.s
-
-# target to generate assembly for a file
-examples/cloud_api/sample_cloud_api.cc.s:
-	$(MAKE) -f CMakeFiles/sample_cloud_api.dir/build.make CMakeFiles/sample_cloud_api.dir/examples/cloud_api/sample_cloud_api.cc.s
-.PHONY : examples/cloud_api/sample_cloud_api.cc.s
-
-examples/common/image_processor.o: examples/common/image_processor.cc.o
-
-.PHONY : examples/common/image_processor.o
-
-# target to build an object file
-examples/common/image_processor.cc.o:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/common/image_processor.cc.o
-.PHONY : examples/common/image_processor.cc.o
-
-examples/common/image_processor.i: examples/common/image_processor.cc.i
-
-.PHONY : examples/common/image_processor.i
-
-# target to preprocess a source file
-examples/common/image_processor.cc.i:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/common/image_processor.cc.i
-.PHONY : examples/common/image_processor.cc.i
-
-examples/common/image_processor.s: examples/common/image_processor.cc.s
-
-.PHONY : examples/common/image_processor.s
-
-# target to generate assembly for a file
-examples/common/image_processor.cc.s:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/common/image_processor.cc.s
-.PHONY : examples/common/image_processor.cc.s
-
-examples/common/image_processor_yolovfastest.o: examples/common/image_processor_yolovfastest.cc.o
-
-.PHONY : examples/common/image_processor_yolovfastest.o
-
-# target to build an object file
-examples/common/image_processor_yolovfastest.cc.o:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/common/image_processor_yolovfastest.cc.o
-.PHONY : examples/common/image_processor_yolovfastest.cc.o
-
-examples/common/image_processor_yolovfastest.i: examples/common/image_processor_yolovfastest.cc.i
-
-.PHONY : examples/common/image_processor_yolovfastest.i
-
-# target to preprocess a source file
-examples/common/image_processor_yolovfastest.cc.i:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/common/image_processor_yolovfastest.cc.i
-.PHONY : examples/common/image_processor_yolovfastest.cc.i
-
-examples/common/image_processor_yolovfastest.s: examples/common/image_processor_yolovfastest.cc.s
-
-.PHONY : examples/common/image_processor_yolovfastest.s
-
-# target to generate assembly for a file
-examples/common/image_processor_yolovfastest.cc.s:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/common/image_processor_yolovfastest.cc.s
-.PHONY : examples/common/image_processor_yolovfastest.cc.s
 
 examples/common/util_misc.o: examples/common/util_misc.cc.o
 
@@ -389,60 +217,6 @@ examples/init/pre_init.cc.s:
 	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.s
 .PHONY : examples/init/pre_init.cc.s
 
-examples/liveview/ffmpeg_stream_decoder.o: examples/liveview/ffmpeg_stream_decoder.cc.o
-
-.PHONY : examples/liveview/ffmpeg_stream_decoder.o
-
-# target to build an object file
-examples/liveview/ffmpeg_stream_decoder.cc.o:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/liveview/ffmpeg_stream_decoder.cc.o
-.PHONY : examples/liveview/ffmpeg_stream_decoder.cc.o
-
-examples/liveview/ffmpeg_stream_decoder.i: examples/liveview/ffmpeg_stream_decoder.cc.i
-
-.PHONY : examples/liveview/ffmpeg_stream_decoder.i
-
-# target to preprocess a source file
-examples/liveview/ffmpeg_stream_decoder.cc.i:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/liveview/ffmpeg_stream_decoder.cc.i
-.PHONY : examples/liveview/ffmpeg_stream_decoder.cc.i
-
-examples/liveview/ffmpeg_stream_decoder.s: examples/liveview/ffmpeg_stream_decoder.cc.s
-
-.PHONY : examples/liveview/ffmpeg_stream_decoder.s
-
-# target to generate assembly for a file
-examples/liveview/ffmpeg_stream_decoder.cc.s:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/liveview/ffmpeg_stream_decoder.cc.s
-.PHONY : examples/liveview/ffmpeg_stream_decoder.cc.s
-
-examples/liveview/image_processor_thread.o: examples/liveview/image_processor_thread.cc.o
-
-.PHONY : examples/liveview/image_processor_thread.o
-
-# target to build an object file
-examples/liveview/image_processor_thread.cc.o:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/liveview/image_processor_thread.cc.o
-.PHONY : examples/liveview/image_processor_thread.cc.o
-
-examples/liveview/image_processor_thread.i: examples/liveview/image_processor_thread.cc.i
-
-.PHONY : examples/liveview/image_processor_thread.i
-
-# target to preprocess a source file
-examples/liveview/image_processor_thread.cc.i:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/liveview/image_processor_thread.cc.i
-.PHONY : examples/liveview/image_processor_thread.cc.i
-
-examples/liveview/image_processor_thread.s: examples/liveview/image_processor_thread.cc.s
-
-.PHONY : examples/liveview/image_processor_thread.s
-
-# target to generate assembly for a file
-examples/liveview/image_processor_thread.cc.s:
-	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/liveview/image_processor_thread.cc.s
-.PHONY : examples/liveview/image_processor_thread.cc.s
-
 examples/liveview/sample_liveview.o: examples/liveview/sample_liveview.cc.o
 
 .PHONY : examples/liveview/sample_liveview.o
@@ -469,33 +243,6 @@ examples/liveview/sample_liveview.s: examples/liveview/sample_liveview.cc.s
 examples/liveview/sample_liveview.cc.s:
 	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.s
 .PHONY : examples/liveview/sample_liveview.cc.s
-
-examples/liveview/sample_liveview_main.o: examples/liveview/sample_liveview_main.cc.o
-
-.PHONY : examples/liveview/sample_liveview_main.o
-
-# target to build an object file
-examples/liveview/sample_liveview_main.cc.o:
-	$(MAKE) -f CMakeFiles/sample_liveview.dir/build.make CMakeFiles/sample_liveview.dir/examples/liveview/sample_liveview_main.cc.o
-.PHONY : examples/liveview/sample_liveview_main.cc.o
-
-examples/liveview/sample_liveview_main.i: examples/liveview/sample_liveview_main.cc.i
-
-.PHONY : examples/liveview/sample_liveview_main.i
-
-# target to preprocess a source file
-examples/liveview/sample_liveview_main.cc.i:
-	$(MAKE) -f CMakeFiles/sample_liveview.dir/build.make CMakeFiles/sample_liveview.dir/examples/liveview/sample_liveview_main.cc.i
-.PHONY : examples/liveview/sample_liveview_main.cc.i
-
-examples/liveview/sample_liveview_main.s: examples/liveview/sample_liveview_main.cc.s
-
-.PHONY : examples/liveview/sample_liveview_main.s
-
-# target to generate assembly for a file
-examples/liveview/sample_liveview_main.cc.s:
-	$(MAKE) -f CMakeFiles/sample_liveview.dir/build.make CMakeFiles/sample_liveview.dir/examples/liveview/sample_liveview_main.cc.s
-.PHONY : examples/liveview/sample_liveview_main.cc.s
 
 examples/liveview/stream_decoder.o: examples/liveview/stream_decoder.cc.o
 
@@ -551,33 +298,6 @@ examples/liveview/stream_processor_thread.cc.s:
 	$(MAKE) -f CMakeFiles/edge_sample.dir/build.make CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.s
 .PHONY : examples/liveview/stream_processor_thread.cc.s
 
-examples/liveview/test_liveview_dual_main.o: examples/liveview/test_liveview_dual_main.cc.o
-
-.PHONY : examples/liveview/test_liveview_dual_main.o
-
-# target to build an object file
-examples/liveview/test_liveview_dual_main.cc.o:
-	$(MAKE) -f CMakeFiles/test_liveview_dual.dir/build.make CMakeFiles/test_liveview_dual.dir/examples/liveview/test_liveview_dual_main.cc.o
-.PHONY : examples/liveview/test_liveview_dual_main.cc.o
-
-examples/liveview/test_liveview_dual_main.i: examples/liveview/test_liveview_dual_main.cc.i
-
-.PHONY : examples/liveview/test_liveview_dual_main.i
-
-# target to preprocess a source file
-examples/liveview/test_liveview_dual_main.cc.i:
-	$(MAKE) -f CMakeFiles/test_liveview_dual.dir/build.make CMakeFiles/test_liveview_dual.dir/examples/liveview/test_liveview_dual_main.cc.i
-.PHONY : examples/liveview/test_liveview_dual_main.cc.i
-
-examples/liveview/test_liveview_dual_main.s: examples/liveview/test_liveview_dual_main.cc.s
-
-.PHONY : examples/liveview/test_liveview_dual_main.s
-
-# target to generate assembly for a file
-examples/liveview/test_liveview_dual_main.cc.s:
-	$(MAKE) -f CMakeFiles/test_liveview_dual.dir/build.make CMakeFiles/test_liveview_dual.dir/examples/liveview/test_liveview_dual_main.cc.s
-.PHONY : examples/liveview/test_liveview_dual_main.cc.s
-
 examples/liveview/test_liveview_main.o: examples/liveview/test_liveview_main.cc.o
 
 .PHONY : examples/liveview/test_liveview_main.o
@@ -605,140 +325,16 @@ examples/liveview/test_liveview_main.cc.s:
 	$(MAKE) -f CMakeFiles/test_liveview.dir/build.make CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.s
 .PHONY : examples/liveview/test_liveview_main.cc.s
 
-examples/media_manager/sample_media_file_list.o: examples/media_manager/sample_media_file_list.cc.o
-
-.PHONY : examples/media_manager/sample_media_file_list.o
-
-# target to build an object file
-examples/media_manager/sample_media_file_list.cc.o:
-	$(MAKE) -f CMakeFiles/sample_media_file_list.dir/build.make CMakeFiles/sample_media_file_list.dir/examples/media_manager/sample_media_file_list.cc.o
-.PHONY : examples/media_manager/sample_media_file_list.cc.o
-
-examples/media_manager/sample_media_file_list.i: examples/media_manager/sample_media_file_list.cc.i
-
-.PHONY : examples/media_manager/sample_media_file_list.i
-
-# target to preprocess a source file
-examples/media_manager/sample_media_file_list.cc.i:
-	$(MAKE) -f CMakeFiles/sample_media_file_list.dir/build.make CMakeFiles/sample_media_file_list.dir/examples/media_manager/sample_media_file_list.cc.i
-.PHONY : examples/media_manager/sample_media_file_list.cc.i
-
-examples/media_manager/sample_media_file_list.s: examples/media_manager/sample_media_file_list.cc.s
-
-.PHONY : examples/media_manager/sample_media_file_list.s
-
-# target to generate assembly for a file
-examples/media_manager/sample_media_file_list.cc.s:
-	$(MAKE) -f CMakeFiles/sample_media_file_list.dir/build.make CMakeFiles/sample_media_file_list.dir/examples/media_manager/sample_media_file_list.cc.s
-.PHONY : examples/media_manager/sample_media_file_list.cc.s
-
-examples/media_manager/sample_read_media_file.o: examples/media_manager/sample_read_media_file.cc.o
-
-.PHONY : examples/media_manager/sample_read_media_file.o
-
-# target to build an object file
-examples/media_manager/sample_read_media_file.cc.o:
-	$(MAKE) -f CMakeFiles/sample_read_media_file.dir/build.make CMakeFiles/sample_read_media_file.dir/examples/media_manager/sample_read_media_file.cc.o
-.PHONY : examples/media_manager/sample_read_media_file.cc.o
-
-examples/media_manager/sample_read_media_file.i: examples/media_manager/sample_read_media_file.cc.i
-
-.PHONY : examples/media_manager/sample_read_media_file.i
-
-# target to preprocess a source file
-examples/media_manager/sample_read_media_file.cc.i:
-	$(MAKE) -f CMakeFiles/sample_read_media_file.dir/build.make CMakeFiles/sample_read_media_file.dir/examples/media_manager/sample_read_media_file.cc.i
-.PHONY : examples/media_manager/sample_read_media_file.cc.i
-
-examples/media_manager/sample_read_media_file.s: examples/media_manager/sample_read_media_file.cc.s
-
-.PHONY : examples/media_manager/sample_read_media_file.s
-
-# target to generate assembly for a file
-examples/media_manager/sample_read_media_file.cc.s:
-	$(MAKE) -f CMakeFiles/sample_read_media_file.dir/build.make CMakeFiles/sample_read_media_file.dir/examples/media_manager/sample_read_media_file.cc.s
-.PHONY : examples/media_manager/sample_read_media_file.cc.s
-
-examples/media_manager/sample_set_upload_cloud_strategy.o: examples/media_manager/sample_set_upload_cloud_strategy.cc.o
-
-.PHONY : examples/media_manager/sample_set_upload_cloud_strategy.o
-
-# target to build an object file
-examples/media_manager/sample_set_upload_cloud_strategy.cc.o:
-	$(MAKE) -f CMakeFiles/sample_set_upload_cloud_strategy.dir/build.make CMakeFiles/sample_set_upload_cloud_strategy.dir/examples/media_manager/sample_set_upload_cloud_strategy.cc.o
-.PHONY : examples/media_manager/sample_set_upload_cloud_strategy.cc.o
-
-examples/media_manager/sample_set_upload_cloud_strategy.i: examples/media_manager/sample_set_upload_cloud_strategy.cc.i
-
-.PHONY : examples/media_manager/sample_set_upload_cloud_strategy.i
-
-# target to preprocess a source file
-examples/media_manager/sample_set_upload_cloud_strategy.cc.i:
-	$(MAKE) -f CMakeFiles/sample_set_upload_cloud_strategy.dir/build.make CMakeFiles/sample_set_upload_cloud_strategy.dir/examples/media_manager/sample_set_upload_cloud_strategy.cc.i
-.PHONY : examples/media_manager/sample_set_upload_cloud_strategy.cc.i
-
-examples/media_manager/sample_set_upload_cloud_strategy.s: examples/media_manager/sample_set_upload_cloud_strategy.cc.s
-
-.PHONY : examples/media_manager/sample_set_upload_cloud_strategy.s
-
-# target to generate assembly for a file
-examples/media_manager/sample_set_upload_cloud_strategy.cc.s:
-	$(MAKE) -f CMakeFiles/sample_set_upload_cloud_strategy.dir/build.make CMakeFiles/sample_set_upload_cloud_strategy.dir/examples/media_manager/sample_set_upload_cloud_strategy.cc.s
-.PHONY : examples/media_manager/sample_set_upload_cloud_strategy.cc.s
-
-examples/test/pressure_test.o: examples/test/pressure_test.cc.o
-
-.PHONY : examples/test/pressure_test.o
-
-# target to build an object file
-examples/test/pressure_test.cc.o:
-	$(MAKE) -f CMakeFiles/pressure_test.dir/build.make CMakeFiles/pressure_test.dir/examples/test/pressure_test.cc.o
-.PHONY : examples/test/pressure_test.cc.o
-
-examples/test/pressure_test.i: examples/test/pressure_test.cc.i
-
-.PHONY : examples/test/pressure_test.i
-
-# target to preprocess a source file
-examples/test/pressure_test.cc.i:
-	$(MAKE) -f CMakeFiles/pressure_test.dir/build.make CMakeFiles/pressure_test.dir/examples/test/pressure_test.cc.i
-.PHONY : examples/test/pressure_test.cc.i
-
-examples/test/pressure_test.s: examples/test/pressure_test.cc.s
-
-.PHONY : examples/test/pressure_test.s
-
-# target to generate assembly for a file
-examples/test/pressure_test.cc.s:
-	$(MAKE) -f CMakeFiles/pressure_test.dir/build.make CMakeFiles/pressure_test.dir/examples/test/pressure_test.cc.s
-.PHONY : examples/test/pressure_test.cc.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
-	@echo "... sample_cloud_api"
-	@echo "... sample_media_file_list"
 	@echo "... rebuild_cache"
-	@echo "... sample_set_upload_cloud_strategy"
-	@echo "... sample_read_media_file"
-	@echo "... test_liveview_dual"
+	@echo "... edit_cache"
 	@echo "... edge_sample"
-	@echo "... pressure_test"
 	@echo "... test_liveview"
-	@echo "... sample_liveview"
-	@echo "... examples/cloud_api/sample_cloud_api.o"
-	@echo "... examples/cloud_api/sample_cloud_api.i"
-	@echo "... examples/cloud_api/sample_cloud_api.s"
-	@echo "... examples/common/image_processor.o"
-	@echo "... examples/common/image_processor.i"
-	@echo "... examples/common/image_processor.s"
-	@echo "... examples/common/image_processor_yolovfastest.o"
-	@echo "... examples/common/image_processor_yolovfastest.i"
-	@echo "... examples/common/image_processor_yolovfastest.s"
 	@echo "... examples/common/util_misc.o"
 	@echo "... examples/common/util_misc.i"
 	@echo "... examples/common/util_misc.s"
@@ -748,42 +344,18 @@ help:
 	@echo "... examples/init/pre_init.o"
 	@echo "... examples/init/pre_init.i"
 	@echo "... examples/init/pre_init.s"
-	@echo "... examples/liveview/ffmpeg_stream_decoder.o"
-	@echo "... examples/liveview/ffmpeg_stream_decoder.i"
-	@echo "... examples/liveview/ffmpeg_stream_decoder.s"
-	@echo "... examples/liveview/image_processor_thread.o"
-	@echo "... examples/liveview/image_processor_thread.i"
-	@echo "... examples/liveview/image_processor_thread.s"
 	@echo "... examples/liveview/sample_liveview.o"
 	@echo "... examples/liveview/sample_liveview.i"
 	@echo "... examples/liveview/sample_liveview.s"
-	@echo "... examples/liveview/sample_liveview_main.o"
-	@echo "... examples/liveview/sample_liveview_main.i"
-	@echo "... examples/liveview/sample_liveview_main.s"
 	@echo "... examples/liveview/stream_decoder.o"
 	@echo "... examples/liveview/stream_decoder.i"
 	@echo "... examples/liveview/stream_decoder.s"
 	@echo "... examples/liveview/stream_processor_thread.o"
 	@echo "... examples/liveview/stream_processor_thread.i"
 	@echo "... examples/liveview/stream_processor_thread.s"
-	@echo "... examples/liveview/test_liveview_dual_main.o"
-	@echo "... examples/liveview/test_liveview_dual_main.i"
-	@echo "... examples/liveview/test_liveview_dual_main.s"
 	@echo "... examples/liveview/test_liveview_main.o"
 	@echo "... examples/liveview/test_liveview_main.i"
 	@echo "... examples/liveview/test_liveview_main.s"
-	@echo "... examples/media_manager/sample_media_file_list.o"
-	@echo "... examples/media_manager/sample_media_file_list.i"
-	@echo "... examples/media_manager/sample_media_file_list.s"
-	@echo "... examples/media_manager/sample_read_media_file.o"
-	@echo "... examples/media_manager/sample_read_media_file.i"
-	@echo "... examples/media_manager/sample_read_media_file.s"
-	@echo "... examples/media_manager/sample_set_upload_cloud_strategy.o"
-	@echo "... examples/media_manager/sample_set_upload_cloud_strategy.i"
-	@echo "... examples/media_manager/sample_set_upload_cloud_strategy.s"
-	@echo "... examples/test/pressure_test.o"
-	@echo "... examples/test/pressure_test.i"
-	@echo "... examples/test/pressure_test.s"
 .PHONY : help
 
 

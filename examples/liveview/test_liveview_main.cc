@@ -48,25 +48,25 @@ int main(int argc, char **argv) {
         sleep(1);
     }
 
-    auto quality = atoi(argv[2]);
+    auto quality = atoi(argv[2]);//should be set to 5
 
     const char type_to_str[2][16] = {"FPVCamera", "PayloadCamera"};
 
     // create liveview sample
-    auto camera = std::string(type_to_str[type]);
+    auto camera = std::string(type_to_str[type]);//should be set to Payload camera
 
     auto liveview_sample = std::make_shared<LiveviewSample>(std::string(camera));
 
-    StreamDecoder::Options decoder_option = {.name = std::string("ffmpeg")};
+    StreamDecoder::Options decoder_option = {.name = std::string("null")};
     auto stream_decoder = CreateStreamDecoder(decoder_option);
 
-    ImageProcessor::Options image_processor_option = {.name = std::string("display"),
-                                       .alias = camera, .userdata = liveview_sample};
-    auto image_processor = CreateImageProcessor(image_processor_option);
+    // ImageProcessor::Options image_processor_option = {.name = std::string("display"),
+    //                                    .alias = camera, .userdata = liveview_sample};
+    // auto image_processor = CreateImageProcessor(image_processor_option); //stream processor thread
 
     if (0 != InitLiveviewSample(
         liveview_sample, (Liveview::CameraType)type, (Liveview::StreamQuality)quality,
-        stream_decoder, image_processor)) {
+        stream_decoder)) {
         ERROR("Init %s liveview sample failed", camera.c_str());
     } else {
         liveview_sample->Start();

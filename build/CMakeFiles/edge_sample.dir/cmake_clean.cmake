@@ -1,11 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/edge_sample.dir/examples/common/image_processor.cc.o"
-  "CMakeFiles/edge_sample.dir/examples/common/image_processor_yolovfastest.cc.o"
   "CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.o"
   "CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.o"
   "CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.o"
-  "CMakeFiles/edge_sample.dir/examples/liveview/ffmpeg_stream_decoder.cc.o"
-  "CMakeFiles/edge_sample.dir/examples/liveview/image_processor_thread.cc.o"
   "CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o"
   "CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.o"
   "CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o"

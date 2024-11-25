@@ -144,16 +144,15 @@ void LiveviewSample::LiveviewStatusCallback(
 
 int32_t InitLiveviewSample(std::shared_ptr<LiveviewSample>& liveview_sample, edge_sdk::Liveview::CameraType type,
     edge_sdk::Liveview::StreamQuality quality,
-    std::shared_ptr<StreamDecoder> stream_decoder,
-    std::shared_ptr<ImageProcessor> image_processor)
+    std::shared_ptr<StreamDecoder> stream_decoder)
 {
-    auto image_processor_thread = std::make_shared<ImageProcessorThread>(stream_decoder->Name());
-    image_processor_thread->SetImageProcessor(image_processor);
+    // auto image_processor_thread = std::make_shared<ImageProcessorThread>(stream_decoder->Name());
+    // image_processor_thread->SetImageProcessor(image_processor);
 
     auto stream_processor_thread =
         std::make_shared<StreamProcessorThread>(stream_decoder->Name());
     stream_processor_thread->SetStreamDecoder(stream_decoder);
-    stream_processor_thread->SetImageProcessorThread(image_processor_thread);
+    // stream_processor_thread->SetImageProcessorThread(image_processor_thread);
 
     auto rc = liveview_sample->Init(type, quality, stream_processor_thread);
     if (rc != kOk) {

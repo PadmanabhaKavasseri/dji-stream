@@ -4,7 +4,7 @@
 # compile CXX with g++
 CXX_FLAGS =  -std=c++14 -pthread -fprofile-arcs -ftest-coverage -Wno-deprecated-declarations  
 
-CXX_DEFINES = -DFFMPEG_INSTALLED -DOPEN_CV_INSTALLED -DOPEN_CV_VERSION_4 -D_GNU_SOURCE
+CXX_DEFINES = -D_GNU_SOURCE
 
-CXX_INCLUDES = -I/home/user/Edge-SDK/include -I/home/user/Edge-SDK/examples -I/home/user/Edge-SDK/examples/common -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -isystem /usr/include/opencv4 
+CXX_INCLUDES = -I/home/user/Edge-SDK/include -I/home/user/Edge-SDK/examples -I/home/user/Edge-SDK/examples/common 
 

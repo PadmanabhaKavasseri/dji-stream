@@ -22,7 +22,7 @@
 
 #include "stream_decoder.h"
 
-#include "ffmpeg_stream_decoder.h"
+// #include "ffmpeg_stream_decoder.h"
 #include "logger.h"
 
 namespace edge_app {
@@ -53,9 +53,9 @@ class UndefinedStreamDecoder : public StreamDecoder {
 
 std::shared_ptr<StreamDecoder> CreateStreamDecoder(
     const StreamDecoder::Options& option) {
-    if (option.name == std::string("ffmpeg")) {
-        return std::make_shared<FFmpegStreamDecoder>(option.name);
-    }
+    // if (option.name == std::string("ffmpeg")) {
+    //     return std::make_shared<FFmpegStreamDecoder>(option.name);
+    // }
 
     return std::make_shared<UndefinedStreamDecoder>(option.name);
 }

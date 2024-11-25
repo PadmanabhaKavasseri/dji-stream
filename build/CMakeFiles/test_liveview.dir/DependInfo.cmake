@@ -10,9 +10,6 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_CXX
-  "FFMPEG_INSTALLED"
-  "OPEN_CV_INSTALLED"
-  "OPEN_CV_VERSION_4"
   "_GNU_SOURCE"
   )
 
@@ -21,10 +18,6 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
   "../examples"
   "../examples/common"
-  "/usr/include/gstreamer-1.0"
-  "/usr/include/glib-2.0"
-  "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
-  "/usr/include/opencv4"
   )
 
 # Targets to which this target links.

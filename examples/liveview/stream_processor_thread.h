@@ -32,10 +32,6 @@
 
 #include "error_code.h"
 
-#include <gst/gst.h>
-#include <glib.h>
-#include <gst/app/gstappsrc.h>
-#include <gst/rtsp-server/rtsp-server.h>
 
 
 namespace cv {
@@ -68,11 +64,11 @@ class StreamProcessorThread {
 
     int32_t Stop();
 
-    void SetupPipeline();
+    // void SetupPipeline();
 
-    void PushDataToAppsrc(const std::vector<uint8_t>& data);
+    // void PushDataToAppsrc(const std::vector<uint8_t>& data);
 
-    void SetupRTSPServer();
+    // void SetupRTSPServer();
 
    protected:
     enum {
@@ -92,10 +88,6 @@ class StreamProcessorThread {
     std::shared_ptr<StreamDecoder> stream_decoder_;
     std::shared_ptr<ImageProcessorThread> image_processor_thread_;
 
-    GstElement *appsrc = nullptr;
-    GstPipeline *pipeline = nullptr;
-    GstRTSPServer *server = nullptr;
-    GstRTSPMediaFactory *factory = nullptr;
 };
 
 }  // namespace edge_app
