@@ -78,6 +78,7 @@ ErrorCode LiveviewSample::StreamCallback(const uint8_t* data, size_t len) {
         // std::cout << "in sample_liveview.cc is h264: " << IsH264Stream(data,len) << std::endl;
         // PrintNALUnitType(data,len);
         std::cout << "LiveviewSample::StreamCallback: len " << len << std::endl;
+
         stream_processor_thread_->InputStream(data, len);// i think this can stay the same
         // streamData(data,len);
     }
@@ -91,11 +92,22 @@ ErrorCode LiveviewSample::StreamCallback(const uint8_t* data, size_t len) {
 
     // for bitrate calculate
     receive_stream_data_total_size_ += len;
+    frame_count_++; 
+
     auto duration  = std::chrono::duration_cast<std::chrono::milliseconds>(now - receive_stream_data_time_).count();
     if (duration >= BITRATE_CALCULATE_INTERVAL_TIME_MS) {
         auto kbps = receive_stream_data_total_size_ * BITRATE_CALCULATE_BITS_PER_BYTE / (BITRATE_CALCULATE_INTERVAL_TIME_MS / 1000) / 1024;
         stream_bitrate_kbps_ = kbps;
+
+        // FPS calculation
+        auto fps = frame_count_ / (duration / 1000.0);
+        stream_fps_ = fps;
+
+        std::cout << "Frame Bitrate kbps: " << stream_bitrate_kbps_ << " FPS " << stream_fps_ << std::endl;
+
+
         receive_stream_data_total_size_  = 0;
+        frame_count_ = 0;
         receive_stream_data_time_  = now;
     }
     return kOk;

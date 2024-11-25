@@ -77,14 +77,14 @@ int32_t StreamProcessorThread::Start() {
         return -1;
     }
     processor_start_ = true;
-    if (stream_decoder_) {
-        auto ret = stream_decoder_->Init();
-        if (ret < 0) {
-            ERROR("Failed to init stream decoder");
-            processor_start_ = false;
-            return -1;
-        }
-    }
+    // if (stream_decoder_) {
+    //     auto ret = stream_decoder_->Init();
+    //     if (ret < 0) {
+    //         ERROR("Failed to init stream decoder");
+    //         processor_start_ = false;
+    //         return -1;
+    //     }
+    // }
     //thread 1 start
     stream_processor_thread_ = std::thread(&StreamProcessorThread::ImageProcess, this);
     {
@@ -125,7 +125,7 @@ void StreamProcessorThread::ImageProcess() {
         decode_vector_.clear();
         l.unlock();
         std::cout << "StreamProcessorThread::ImageProcess: decode_data_ size: " << decode_data.size() << std::endl;
-
+        
         //my code
         // Push the data into the GStreamer appsrc
         // PushDataToAppsrc(appsrc_data);

@@ -86,6 +86,8 @@ class LiveviewSample {
     std::atomic<uint32_t> stream_bitrate_kbps_;
     std::chrono::system_clock::time_point receive_stream_data_time_ = std::chrono::system_clock::now();
     uint32_t receive_stream_data_total_size_;
+    uint32_t frame_count_ = 0;
+    uint32_t stream_fps_ = 0;
 };
 
 int32_t InitLiveviewSample(std::shared_ptr<LiveviewSample>& liveview_sample, edge_sdk::Liveview::CameraType type,
