@@ -72,7 +72,6 @@ class StreamProcessorThread {
 
     void PushDataToAppsrc(const std::vector<uint8_t>& data);
 
-    void SetupRTSPServer();
 
    protected:
     enum {
@@ -92,10 +91,17 @@ class StreamProcessorThread {
     std::shared_ptr<StreamDecoder> stream_decoder_;
     std::shared_ptr<ImageProcessorThread> image_processor_thread_;
 
-    GstElement *appsrc = nullptr;
-    GstPipeline *pipeline = nullptr;
-    GstRTSPServer *server = nullptr;
+    GstElement *appsrc_ = nullptr;
+    GstElement *app_queue_ = nullptr;
+    GstElement *h264parse_ = nullptr;
+    GstElement *decoder_ = nullptr;
+    GstElement *videoconvert_ = nullptr;
+    GstElement *pipeline_ = nullptr;
+    GstElement *waylandsink_ = nullptr;
+    GstElement *fakesink_ = nullptr;
     GstRTSPMediaFactory *factory = nullptr;
+
+    //appsrc ! queue ! h264parse ! avdec_h264 ! videoconvert ! waylandsink
 };
 
 }  // namespace edge_app

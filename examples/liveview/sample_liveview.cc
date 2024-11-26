@@ -43,6 +43,12 @@ void PrintNALUnitType(const uint8_t* data, size_t len) {
             uint8_t nal_unit_header = data[offset];
             uint8_t nal_unit_type = nal_unit_header & 0x1F; // Lower 5 bits
             std::cout << "NAL Unit Type: " << static_cast<int>(nal_unit_type) << std::endl;
+            if(nal_unit_type == 7){
+                std::cout << "SSSSPPPPPPPPPPSSSSSSSSS" << std::endl;
+            }
+            if(nal_unit_type == 8){
+                std::cout << "PPPPPPPPPPPPPPPSSSSSSSSS" << std::endl;
+            }
         }
     }
 }
@@ -76,8 +82,8 @@ ErrorCode LiveviewSample::StreamCallback(const uint8_t* data, size_t len) {
     auto now =  std::chrono::system_clock::now();
     if (stream_processor_thread_) {
         // std::cout << "in sample_liveview.cc is h264: " << IsH264Stream(data,len) << std::endl;
-        // PrintNALUnitType(data,len);
-        std::cout << "LiveviewSample::StreamCallback: len " << len << std::endl;
+        PrintNALUnitType(data,len);
+        // std::cout << "LiveviewSample::StreamCallback: len " << len << std::endl;
         stream_processor_thread_->InputStream(data, len);// i think this can stay the same
         // streamData(data,len);
     }
