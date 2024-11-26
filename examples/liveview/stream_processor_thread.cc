@@ -85,6 +85,15 @@ void StreamProcessorThread::SetupPipeline() {
     h264parse_ = gst_element_factory_make("h264parse", "h264_parser");
     decoder_ = gst_element_factory_make("qtic2vdec", "h264_decoder");
     waylandsink_ = gst_element_factory_make("waylandsink", "wayland_sink");
+
+    if (!waylandsink_) {
+        std::cerr << "Failed to create Wayland sink element." << std::endl;
+    } 
+    else {
+        // Set properties for the waylandsink element
+        g_object_set(G_OBJECT(waylandsink_), "sync", FALSE, "fullscreen", TRUE, nullptr);
+    }
+
     fakesink_ = gst_element_factory_make("fakesink", "fake_sink");
 
 
@@ -111,7 +120,7 @@ StreamProcessorThread::StreamProcessorThread(const std::string& name)
     : processor_name_(name) {
     processor_start_ = false;
 
-
+    SetupPipeline();
 }
 
 StreamProcessorThread::~StreamProcessorThread() { Stop(); }
