@@ -53,7 +53,7 @@ void StreamProcessorThread::SetupPipeline() {
     // Set appsrc properties
     GstCaps *caps = gst_caps_new_simple(
     "video/x-h264",
-    "stream-format", G_TYPE_STRING, "byte-stream", // or "byte-stream" if using byte-stream format
+    "stream-format", G_TYPE_STRING, "avc", // or "byte-stream" if using byte-stream format
     "alignment", G_TYPE_STRING, "au",      // alignment must be "au" for access units
     nullptr
     );
@@ -68,6 +68,7 @@ void StreamProcessorThread::SetupPipeline() {
     videoconvert_ = gst_element_factory_make("videoconvert", "video_converter");
     waylandsink_ = gst_element_factory_make("waylandsink", "wayland_sink");
     fakesink_ = gst_element_factory_make("fakesink", "fake_sink");
+    GstElement *app_queue_2 = gst_element_factory_make("queue", "app_queue_2");
 
 
     if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !videoconvert_ || !waylandsink_ || !fakesink_) {
@@ -75,14 +76,13 @@ void StreamProcessorThread::SetupPipeline() {
     }
 
     // Add elements to the pipeline
-    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, videoconvert_, fakesink_, nullptr);
+    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, app_queue_2, decoder_, videoconvert_, fakesink_, nullptr);
+
 
     // Link elements
-    if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, decoder_, videoconvert_, fakesink_, nullptr)) {
-        std::cerr << "Failed to link GStreamer elements." << std::endl;
+    if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, app_queue_2, decoder_, videoconvert_, fakesink_, nullptr)) {
+    std::cerr << "Failed to link GStreamer elements." << std::endl;
     }
-
-
 
     // Set the pipeline to playing state
     gst_element_set_state(pipeline_, GST_STATE_PLAYING);
