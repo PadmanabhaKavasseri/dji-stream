@@ -60,15 +60,15 @@ include CMakeFiles/test_liveview.dir/flags.make
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: CMakeFiles/test_liveview.dir/flags.make
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: ../examples/liveview/test_liveview_main.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Edge-SDK/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o"
-	g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o -c /home/user/Edge-SDK/examples/liveview/test_liveview_main.cc
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o -c /home/user/Edge-SDK/examples/liveview/test_liveview_main.cc
 
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.i"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/liveview/test_liveview_main.cc > CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/liveview/test_liveview_main.cc > CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.i
 
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.s"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/liveview/test_liveview_main.cc -o CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/liveview/test_liveview_main.cc -o CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.s
 
 # Object files for target test_liveview
 test_liveview_OBJECTS = \

@@ -36,7 +36,7 @@ pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0)
 include_directories(${GSTREAMER_INCLUDE_DIRS})
 link_directories(${GSTREAMER_LIBRARY_DIRS})
 
-link_libraries(${GSTREAMER_LIBRARIES}))
+link_libraries(${GSTREAMER_LIBRARIES})
 
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third_party)

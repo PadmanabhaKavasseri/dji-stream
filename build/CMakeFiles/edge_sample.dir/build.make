@@ -60,80 +60,80 @@ include CMakeFiles/edge_sample.dir/flags.make
 CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.o: CMakeFiles/edge_sample.dir/flags.make
 CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.o: ../examples/common/util_misc.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Edge-SDK/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.o"
-	g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.o -c /home/user/Edge-SDK/examples/common/util_misc.cc
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.o -c /home/user/Edge-SDK/examples/common/util_misc.cc
 
 CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.i"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/common/util_misc.cc > CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/common/util_misc.cc > CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.i
 
 CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.s"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/common/util_misc.cc -o CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/common/util_misc.cc -o CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.s
 
 CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.o: CMakeFiles/edge_sample.dir/flags.make
 CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.o: ../examples/init/key_store_default.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Edge-SDK/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.o"
-	g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.o -c /home/user/Edge-SDK/examples/init/key_store_default.cc
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.o -c /home/user/Edge-SDK/examples/init/key_store_default.cc
 
 CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.i"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/init/key_store_default.cc > CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/init/key_store_default.cc > CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.i
 
 CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.s"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/init/key_store_default.cc -o CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/init/key_store_default.cc -o CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.s
 
 CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.o: CMakeFiles/edge_sample.dir/flags.make
 CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.o: ../examples/init/pre_init.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Edge-SDK/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.o"
-	g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.o -c /home/user/Edge-SDK/examples/init/pre_init.cc
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.o -c /home/user/Edge-SDK/examples/init/pre_init.cc
 
 CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.i"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/init/pre_init.cc > CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/init/pre_init.cc > CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.i
 
 CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.s"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/init/pre_init.cc -o CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/init/pre_init.cc -o CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.s
 
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: CMakeFiles/edge_sample.dir/flags.make
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: ../examples/liveview/sample_liveview.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Edge-SDK/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o"
-	g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o -c /home/user/Edge-SDK/examples/liveview/sample_liveview.cc
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o -c /home/user/Edge-SDK/examples/liveview/sample_liveview.cc
 
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.i"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/liveview/sample_liveview.cc > CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/liveview/sample_liveview.cc > CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.i
 
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.s"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/liveview/sample_liveview.cc -o CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/liveview/sample_liveview.cc -o CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.s
 
 CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.o: CMakeFiles/edge_sample.dir/flags.make
 CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.o: ../examples/liveview/stream_decoder.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Edge-SDK/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.o"
-	g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.o -c /home/user/Edge-SDK/examples/liveview/stream_decoder.cc
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.o -c /home/user/Edge-SDK/examples/liveview/stream_decoder.cc
 
 CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.i"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/liveview/stream_decoder.cc > CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/liveview/stream_decoder.cc > CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.i
 
 CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.s"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/liveview/stream_decoder.cc -o CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/liveview/stream_decoder.cc -o CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.s
 
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: CMakeFiles/edge_sample.dir/flags.make
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: ../examples/liveview/stream_processor_thread.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Edge-SDK/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o"
-	g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o -c /home/user/Edge-SDK/examples/liveview/stream_processor_thread.cc
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o -c /home/user/Edge-SDK/examples/liveview/stream_processor_thread.cc
 
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.i"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/liveview/stream_processor_thread.cc > CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Edge-SDK/examples/liveview/stream_processor_thread.cc > CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.i
 
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.s"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/liveview/stream_processor_thread.cc -o CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Edge-SDK/examples/liveview/stream_processor_thread.cc -o CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.s
 
 # Object files for target edge_sample
 edge_sample_OBJECTS = \

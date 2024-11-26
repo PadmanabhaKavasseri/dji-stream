@@ -92,6 +92,8 @@ class StreamProcessorThread {
 
     GstElement *appsrc_ = nullptr;
     GstElement *app_queue_ = nullptr;
+    GstElement *app_queue2_ = nullptr;
+    
     GstElement *h264parse_ = nullptr;
     GstElement *decoder_ = nullptr;
     GstElement *pipeline_ = nullptr;

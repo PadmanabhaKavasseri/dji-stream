@@ -94,20 +94,18 @@ void StreamProcessorThread::SetupPipeline() {
         g_object_set(G_OBJECT(waylandsink_), "sync", FALSE, "fullscreen", TRUE, nullptr);
     }
 
-    fakesink_ = gst_element_factory_make("fakesink", "fake_sink");
-
 
     if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !waylandsink_) {
         std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
     }
 
     // Add elements to the pipeline
-    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, app_queue_2, waylandsink_, nullptr);
+    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr);
 
 
 
     // Link elements
-    if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, decoder_, app_queue_2, waylandsink_, nullptr)) {
+    if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr)) {
         std::cerr << "Failed to link GStreamer elements." << std::endl;
     }
 

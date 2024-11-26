@@ -232,7 +232,7 @@ dji_edge_sdk_demo_BINARY_DIR:STATIC=/home/user/Edge-SDK/build
 dji_edge_sdk_demo_SOURCE_DIR:STATIC=/home/user/Edge-SDK
 
 //Dependencies for the target
-edge_sample_LIB_DEPENDS:STATIC=general;-ledgesdk;general;-lstdc++;general;-lcrypto;general;-lssh2;
+edge_sample_LIB_DEPENDS:STATIC=general;-ledgesdk;general;-lstdc++;general;-lcrypto;general;-lssh2;general;gstreamer-1.0;general;gobject-2.0;general;glib-2.0;
 
 //Path to a library.
 pkgcfg_lib_GSTREAMER_glib-2.0:FILEPATH=/usr/lib/x86_64-linux-gnu/libglib-2.0.so
