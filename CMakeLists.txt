@@ -5,8 +5,8 @@ set(MODULE_SAMPLE_SRC "")
 set(SAMPLE_LIB edge_sample)
 set(CMAKE_C_FLAGS "-pthread -std=gnu99")
 set(CMAKE_EXE_LINKER_FLAGS "-pthread")
-set(CMAKE_C_COMPILER "gcc")
-set(CMAKE_CXX_COMPILER "g++")
+#set(CMAKE_C_COMPILER "gcc")
+#set(CMAKE_CXX_COMPILER "g++")
 
 set(COMMON_CXX_FLAGS "-std=c++14 -pthread")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMMON_CXX_FLAGS} -fprofile-arcs -ftest-coverage -Wno-deprecated-declarations")
@@ -23,12 +23,20 @@ include_directories(include)
 include_directories(examples)
 include_directories(examples/common)
 
-link_directories(${CMAKE_CURRENT_LIST_DIR}/lib/${CMAKE_HOST_SYSTEM_PROCESSOR})
+link_directories(${CMAKE_CURRENT_LIST_DIR}/lib/aarch64)
 link_directories(${CMAKE_BINARY_DIR})
 link_libraries(-ledgesdk -lstdc++)
 link_libraries(-lcrypto)
 link_libraries(-lssh2)
 
+#find GStreamer
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0)
+
+include_directories(${GSTREAMER_INCLUDE_DIRS})
+link_directories(${GSTREAMER_LIBRARY_DIRS})
+
+link_libraries(${GSTREAMER_LIBRARIES}))
 
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third_party)
