@@ -37,11 +37,62 @@ using namespace edge_sdk;
 namespace edge_app {
 
 void StreamProcessorThread::SetupPipeline(){
+    // Initialize GStreamer
+    gst_init(nullptr, nullptr);
+    // Create pipeline
+    pipeline_ = gst_pipeline_new("video_pipeline");
+    if (!pipeline_) {
+        std::cerr << "Failed to create pipeline." << std::endl;
+    }
+    // Create elements
+    appsrc_ = gst_element_factory_make("appsrc", "app_src");
+    // Set appsrc properties
+    GstCaps *caps = gst_caps_new_simple(
+    "video/x-h264",
+    "stream-format", G_TYPE_STRING, "avc", // or "byte-stream" if using byte-stream format
+    "alignment", G_TYPE_STRING, "au",      // alignment must be "au" for access units
+    nullptr
+    );
+    g_object_set(appsrc_, "caps", caps, nullptr);
+    gst_caps_unref(caps);
+    g_object_set(appsrc_, "block", FALSE, nullptr);
+    app_queue_ = gst_element_factory_make("queue", "app_queue");
+    app_queue2_ = gst_element_factory_make("queue", "app_queue2");
+    h264parse_ = gst_element_factory_make("h264parse", "h264_parser");
+    decoder_ = gst_element_factory_make("qtic2vdec", "h264_decoder");
+    waylandsink_ = gst_element_factory_make("waylandsink", "wayland_sink");
+
+
+    if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !waylandsink_) {
+        std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
+    }
+    // Add elements to the pipeline
+    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr);
+    // Link elements
+    if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr)) {
+        std::cerr << "Failed to link GStreamer elements." << std::endl;
+    }
+    // Set the pipeline to playing state
+    gst_element_set_state(pipeline_, GST_STATE_PLAYING);
 
 }
 
-void PushDataToAppsrc(const std::vector<uint8_t>& data){
-    
+void StreamProcessorThread::PushDataToAppsrc(const std::vector<uint8_t>& data){
+    if (!appsrc_) {
+        std::cerr << "Error: appsrc is not initialized." << std::endl;
+        return;
+    }
+    // std::cout << "StreamProcessorThread::PushDataToAppsrc: data: " << data.size() << std::endl;
+    // Create a new GStreamer buffer and fill it with the data
+    GstBuffer *buffer = gst_buffer_new_allocate(nullptr, data.size(), nullptr);
+    gst_buffer_fill(buffer, 0, data.data(), data.size());
+    // Push the buffer into the appsrc element
+    GstFlowReturn ret;
+    g_signal_emit_by_name(appsrc_, "push-buffer", buffer, &ret);
+    gst_buffer_unref(buffer);
+    if (ret != GST_FLOW_OK) {
+        std::cerr << "Failed to push buffer to appsrc. GstFlowReturn: " << ret << std::endl;
+    }
 }
 
 
