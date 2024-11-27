@@ -77,14 +77,14 @@ int32_t StreamProcessorThread::Start() {
         return -1;
     }
     processor_start_ = true;
-    if (stream_decoder_) {
-        auto ret = stream_decoder_->Init();
-        if (ret < 0) {
-            ERROR("Failed to init stream decoder");
-            processor_start_ = false;
-            return -1;
-        }
-    }
+    // if (stream_decoder_) {
+    //     auto ret = stream_decoder_->Init();
+    //     if (ret < 0) {
+    //         ERROR("Failed to init stream decoder");
+    //         processor_start_ = false;
+    //         return -1;
+    //     }
+    // }
     //thread 1 start
     stream_processor_thread_ = std::thread(&StreamProcessorThread::ImageProcess, this);
     {
