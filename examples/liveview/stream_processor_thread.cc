@@ -41,7 +41,7 @@ void StreamProcessorThread::SetupPipeline() {
     // Initialize GStreamer
     gst_init(nullptr, nullptr);
 
-    // Create pipeline
+    // Create pipeline..
     pipeline_ = gst_pipeline_new("video_pipeline");
     if (!pipeline_) {
         std::cerr << "Failed to create pipeline." << std::endl;
@@ -53,7 +53,7 @@ void StreamProcessorThread::SetupPipeline() {
     // Set appsrc properties
     GstCaps *caps = gst_caps_new_simple(
     "video/x-h264",
-    "stream-format", G_TYPE_STRING, "avc", // or "byte-stream" if using byte-stream format
+    "stream-format", G_TYPE_STRING, "byte-stream", // or "byte-stream" if using byte-stream format
     "alignment", G_TYPE_STRING, "au",      // alignment must be "au" for access units
     nullptr
     );
@@ -66,21 +66,23 @@ void StreamProcessorThread::SetupPipeline() {
     h264parse_ = gst_element_factory_make("h264parse", "h264_parser");
     decoder_ = gst_element_factory_make("avdec_h264", "h264_decoder");
     videoconvert_ = gst_element_factory_make("videoconvert", "video_converter");
-    waylandsink_ = gst_element_factory_make("waylandsink", "wayland_sink");
+    xvimagesink_ = gst_element_factory_make("xvimagesink", "xv_image_sink");
     fakesink_ = gst_element_factory_make("fakesink", "fake_sink");
     GstElement *app_queue_2 = gst_element_factory_make("queue", "app_queue_2");
 
 
-    if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !videoconvert_ || !waylandsink_ || !fakesink_) {
+    // Check if any element creation fails
+    if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !videoconvert_ || !xvimagesink_) {
         std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
+        return;
     }
 
     // Add elements to the pipeline
-    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, app_queue_2, decoder_, videoconvert_, fakesink_, nullptr);
+    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, app_queue_2, decoder_, videoconvert_, xvimagesink_, nullptr);
 
 
     // Link elements
-    if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, app_queue_2, decoder_, videoconvert_, fakesink_, nullptr)) {
+    if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, app_queue_2, decoder_, videoconvert_, xvimagesink_, nullptr)) {
     std::cerr << "Failed to link GStreamer elements." << std::endl;
     }
 

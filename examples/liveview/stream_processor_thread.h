@@ -97,8 +97,9 @@ class StreamProcessorThread {
     GstElement *decoder_ = nullptr;
     GstElement *videoconvert_ = nullptr;
     GstElement *pipeline_ = nullptr;
-    GstElement *waylandsink_ = nullptr;
+    GstElement *xvimagesink_  = nullptr;
     GstElement *fakesink_ = nullptr;
+    
     GstRTSPMediaFactory *factory = nullptr;
 
     //appsrc ! queue ! h264parse ! avdec_h264 ! videoconvert ! waylandsink
