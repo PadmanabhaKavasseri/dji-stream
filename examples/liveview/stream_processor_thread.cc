@@ -36,6 +36,13 @@ using namespace edge_sdk;
 
 namespace edge_app {
 
+void StreamProcessorThread::SetupPipeline(){
+
+}
+
+void PushDataToAppsrc(const std::vector<uint8_t>& data){
+    
+}
 
 
 StreamProcessorThread::StreamProcessorThread(const std::string& name)

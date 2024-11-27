@@ -32,6 +32,10 @@
 
 #include "error_code.h"
 
+#include <gst/gst.h>
+#include <glib.h>
+#include <gst/app/gstappsrc.h>
+
 
 
 namespace cv {
@@ -64,9 +68,9 @@ class StreamProcessorThread {
 
     int32_t Stop();
 
-    // void SetupPipeline();
+    void SetupPipeline();
 
-    // void PushDataToAppsrc(const std::vector<uint8_t>& data);
+    void PushDataToAppsrc(const std::vector<uint8_t>& data);
 
     // void SetupRTSPServer();
 
@@ -87,6 +91,13 @@ class StreamProcessorThread {
     std::atomic<bool> processor_start_;
     std::shared_ptr<StreamDecoder> stream_decoder_;
     std::shared_ptr<ImageProcessorThread> image_processor_thread_;
+
+    GstElement *appsrc_ = nullptr;
+    GstElement *app_queue_ = nullptr;
+    GstElement *h264parse_ = nullptr;
+    GstElement *decoder_ = nullptr;
+    GstElement *pipeline_ = nullptr;
+    GstElement *waylandsink_ = nullptr;
 
 };
 
