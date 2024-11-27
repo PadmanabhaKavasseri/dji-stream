@@ -100,6 +100,7 @@ StreamProcessorThread::StreamProcessorThread(const std::string& name)
     : processor_name_(name) {
     processor_start_ = false;
 
+    SetupPipeline();
 
 }
 
@@ -186,7 +187,7 @@ void StreamProcessorThread::ImageProcess() {
 
         //my code
         // Push the data into the GStreamer appsrc
-        // PushDataToAppsrc(appsrc_data);
+        PushDataToAppsrc(appsrc_data);
         //maybe in here?
         // stream_decoder_->Decode(
         //     decode_data.data(), decode_data.size(),
