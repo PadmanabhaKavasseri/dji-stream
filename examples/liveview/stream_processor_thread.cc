@@ -74,7 +74,7 @@ void StreamProcessorThread::SetupPipeline(){
     // gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr);
 
     // Add elements to the pipeline
-    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, app_queue_2, decoder_, videoconvert_, waylandsink_, nullptr);
+    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, app_queue2_, decoder_, waylandsink_, nullptr);
 
 
 
