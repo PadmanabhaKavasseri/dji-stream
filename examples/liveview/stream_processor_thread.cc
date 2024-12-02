@@ -119,13 +119,13 @@ StreamProcessorThread::StreamProcessorThread(const std::string& name)
     : processor_name_(name) {
     processor_start_ = false;
 
-    // SetupPipeline();
+    SetupPipeline();
 
-    const std::string fileName = "output.bin";
-    outFile.open(fileName, std::ios::binary);
-    if (!outFile) {
-        throw std::runtime_error("Failed to open the file for writing.");
-    }
+    // const std::string fileName = "output.bin";
+    // outFile.open(fileName, std::ios::binary);
+    // if (!outFile) {
+    //     throw std::runtime_error("Failed to open the file for writing.");
+    // }
 
 }
 
