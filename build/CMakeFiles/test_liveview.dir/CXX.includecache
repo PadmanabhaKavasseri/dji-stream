@@ -53,20 +53,6 @@ stream_processor_thread.h
 /home/user/Edge-SDK/examples/liveview/stream_processor_thread.h
 fstream
 -
-libavformat/avformat.h
--
-libavcodec/avcodec.h
--
-libavutil/avutil.h
--
-libavutil/imgutils.h
--
-libavutil/frame.h
--
-libavutil/mem.h
--
-libavcodec/avcodec.h
--
 
 /home/user/Edge-SDK/examples/liveview/stream_decoder.h
 memory
@@ -92,6 +78,14 @@ string
 thread
 -
 iostream
+-
+fstream
+-
+vector
+-
+cstdint
+-
+stdexcept
 -
 error_code.h
 /home/user/Edge-SDK/examples/liveview/error_code.h

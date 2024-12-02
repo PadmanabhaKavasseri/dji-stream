@@ -30,6 +30,11 @@
 #include <thread>
 #include <iostream>
 
+#include <fstream>
+#include <vector>
+#include <cstdint>
+#include <stdexcept>
+
 #include "error_code.h"
 
 #include <gst/gst.h>
@@ -72,6 +77,8 @@ class StreamProcessorThread {
 
     void PushDataToAppsrc(const std::vector<uint8_t>& data);
 
+    void WriteDataToFile(const std::vector<uint8_t>& data);
+
     // void SetupRTSPServer();
 
    protected:
@@ -99,6 +106,8 @@ class StreamProcessorThread {
     GstElement *decoder_ = nullptr;
     GstElement *pipeline_ = nullptr;
     GstElement *waylandsink_ = nullptr;
+
+    std::ofstream outFile;
 
 };
 
