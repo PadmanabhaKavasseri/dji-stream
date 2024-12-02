@@ -133,6 +133,14 @@ thread
 -
 iostream
 -
+fstream
+-
+vector
+-
+cstdint
+-
+stdexcept
+-
 error_code.h
 /home/user/Edge-SDK/examples/liveview/error_code.h
 gst/gst.h

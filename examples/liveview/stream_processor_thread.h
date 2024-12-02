@@ -30,6 +30,12 @@
 #include <thread>
 #include <iostream>
 
+
+#include <fstream>
+#include <vector>
+#include <cstdint>
+#include <stdexcept>
+
 #include "error_code.h"
 
 #include <gst/gst.h>
@@ -72,6 +78,8 @@ class StreamProcessorThread {
 
     void PushDataToAppsrc(const std::vector<uint8_t>& data);
 
+    void WriteDataToFile(const std::vector<uint8_t>& data);
+
 
    protected:
     enum {
@@ -101,6 +109,8 @@ class StreamProcessorThread {
     GstElement *fakesink_ = nullptr;
     
     GstRTSPMediaFactory *factory = nullptr;
+
+    std::ofstream outFile;
 
     //appsrc ! queue ! h264parse ! avdec_h264 ! videoconvert ! waylandsink
 };

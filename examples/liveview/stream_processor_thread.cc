@@ -91,6 +91,16 @@ void StreamProcessorThread::SetupPipeline() {
 
 }
 
+void StreamProcessorThread::WriteDataToFile(const std::vector<uint8_t>& data){
+    // Write the data to the file
+    outFile.write(reinterpret_cast<const char*>(data.data()), data.size());
+    // Check if the write operation succeeded
+    if (!outFile) {
+        throw std::runtime_error("Error occurred while writing data to the file.");
+    }
+}
+
+
 void StreamProcessorThread::PushDataToAppsrc(const std::vector<uint8_t>& data) {
     if (!appsrc_) {
         std::cerr << "Error: appsrc is not initialized." << std::endl;
@@ -111,15 +121,20 @@ void StreamProcessorThread::PushDataToAppsrc(const std::vector<uint8_t>& data) {
     }
 }
 
-StreamProcessorThread::StreamProcessorThread(const std::string& name)
-    : processor_name_(name) {
+StreamProcessorThread::StreamProcessorThread(const std::string& name) : processor_name_(name) {
     processor_start_ = false;
 
     //init pipeline here?
     // std::cout << "init appsrc" << std::endl;
     // appsrc = nullptr;
     // SetupRTSPServer();
-    SetupPipeline();
+    // SetupPipeline();
+    const std::string fileName = "output.bin";
+    outFile.open(fileName, std::ios::binary);
+    if (!outFile) {
+        throw std::runtime_error("Failed to open the file for writing.");
+    }
+
     std::cout << "HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE" << std::endl;
 
 }
@@ -207,7 +222,8 @@ void StreamProcessorThread::ImageProcess() {
 
         //my code
         // Push the data into the GStreamer appsrc
-        PushDataToAppsrc(appsrc_data);
+        // PushDataToAppsrc(appsrc_data);
+
         //maybe in here?
         stream_decoder_->Decode(
             decode_data.data(), decode_data.size(),
