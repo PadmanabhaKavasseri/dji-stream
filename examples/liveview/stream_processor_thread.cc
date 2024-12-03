@@ -56,11 +56,10 @@ void StreamProcessorThread::SetupPipeline(){
         std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
          return; 
      }
-
     // Set appsrc properties 
     GstCaps *caps = gst_caps_new_simple( "video/x-raw", "format", G_TYPE_STRING, "I420", // YUV format 
-        "width", G_TYPE_INT, 1280, // Set your width 
-        "height", G_TYPE_INT, 720, // Set your height 
+        "width", G_TYPE_INT, 1920, // Set your width 
+        "height", G_TYPE_INT, 1080, // Set your height 
         "framerate", GST_TYPE_FRACTION, 30, 1, // Example framerate 
         nullptr );
     g_object_set(appsrc_, "caps", caps, nullptr);
