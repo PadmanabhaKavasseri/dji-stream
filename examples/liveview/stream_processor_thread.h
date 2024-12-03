@@ -127,7 +127,9 @@ class StreamProcessorThread {
     
     std::ofstream outFile;
 
+    AVCodecContext *pCodecCtx = nullptr;
     const AVCodec *pCodec = nullptr;
+    AVCodecParserContext *pCodecParserCtx = nullptr;
 
 };
 

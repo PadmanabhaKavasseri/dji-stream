@@ -178,11 +178,20 @@ void StreamProcessorThread::InputStream(const uint8_t* data, size_t length) {
 }
 
 void DecodeFrame(const uint8_t *data, size_t length){
-    
+
 }
 
 void StreamProcessorThread::InitDecoder(){
     pCodec = avcodec_find_decoder(AV_CODEC_ID_H264);
+    pCodecParserCtx = av_parser_init(pCodec->id);
+
+    pCodecCtx = avcodec_alloc_context3(pCodec);
+    pCodecCtx->pix_fmt = AV_PIX_FMT_YUV420P;
+    pCodecCtx->width = 1920;
+    pCodecCtx->height = 1080;
+    pCodecCtx->flags2 |= AV_CODEC_FLAG2_SHOW_ALL;
+    pCodecCtx->thread_count = 4;
+    auto ret = avcodec_open2(pCodecCtx, pCodec, nullptr);
     std::cout << "Init Decoder!!!!!!!!!!!!" << std::endl;
 }
 
