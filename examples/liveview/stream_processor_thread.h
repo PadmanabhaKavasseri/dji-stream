@@ -127,6 +127,8 @@ class StreamProcessorThread {
     
     std::ofstream outFile;
 
+    AVCodec *pCodec = nullptr;
+
 };
 
 }  // namespace edge_app

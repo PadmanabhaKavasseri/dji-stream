@@ -182,7 +182,7 @@ void DecodeFrame(const uint8_t *data, size_t length){
 }
 
 void StreamProcessorThread::InitDecoder(){
-    avcodec_register_all();
+    pCodec = avcodec_find_decoder(AV_CODEC_ID_H264);
     std::cout << "Init Decoder!!!!!!!!!!!!" << std::endl;
 }
 
