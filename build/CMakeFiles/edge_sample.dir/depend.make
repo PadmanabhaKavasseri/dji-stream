@@ -249,11 +249,13 @@ CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/dict.h
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/error.h
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/frame.h
+CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/imgutils.h
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/intfloat.h
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/log.h
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/macros.h
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/mathematics.h
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/mem.h
+CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/pixdesc.h
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/pixfmt.h
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/rational.h
 CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o: /usr/include/x86_64-linux-gnu/libavutil/samplefmt.h
@@ -489,11 +491,13 @@ CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/dict.h
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/error.h
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/frame.h
+CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/imgutils.h
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/intfloat.h
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/log.h
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/macros.h
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/mathematics.h
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/mem.h
+CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/pixdesc.h
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/pixfmt.h
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/rational.h
 CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o: /usr/include/x86_64-linux-gnu/libavutil/samplefmt.h

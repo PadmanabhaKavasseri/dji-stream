@@ -103,6 +103,8 @@ libswscale/swscale.h
 -
 libavutil/frame.h
 -
+libavutil/imgutils.h
+-
 
 /mnt/c/Users/pkavasse/dev/dji-stream/examples/liveview/test_liveview_main.cc
 unistd.h
@@ -1846,6 +1848,14 @@ pixfmt.h
 version.h
 /usr/include/x86_64-linux-gnu/libavutil/version.h
 
+/usr/include/x86_64-linux-gnu/libavutil/imgutils.h
+avutil.h
+/usr/include/x86_64-linux-gnu/libavutil/avutil.h
+pixdesc.h
+/usr/include/x86_64-linux-gnu/libavutil/pixdesc.h
+rational.h
+/usr/include/x86_64-linux-gnu/libavutil/rational.h
+
 /usr/include/x86_64-linux-gnu/libavutil/intfloat.h
 stdint.h
 -
@@ -1887,6 +1897,16 @@ error.h
 /usr/include/x86_64-linux-gnu/libavutil/error.h
 avutil.h
 /usr/include/x86_64-linux-gnu/libavutil/avutil.h
+
+/usr/include/x86_64-linux-gnu/libavutil/pixdesc.h
+inttypes.h
+-
+attributes.h
+/usr/include/x86_64-linux-gnu/libavutil/attributes.h
+pixfmt.h
+/usr/include/x86_64-linux-gnu/libavutil/pixfmt.h
+version.h
+/usr/include/x86_64-linux-gnu/libavutil/version.h
 
 /usr/include/x86_64-linux-gnu/libavutil/pixfmt.h
 libavutil/avconfig.h
