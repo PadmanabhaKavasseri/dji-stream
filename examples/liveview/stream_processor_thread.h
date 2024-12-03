@@ -106,7 +106,15 @@ class StreamProcessorThread {
     GstElement *decoder_ = nullptr;
     GstElement *pipeline_ = nullptr;
     GstElement *waylandsink_ = nullptr;
-
+    GstElement *videoconvert_ = nullptr;
+    GstElement *qtic2venc_ = nullptr;
+    GstElement *queue3_ = nullptr;
+    GstElement *h264parse2_ = nullptr;
+    GstElement *queue4_ = nullptr;
+    GstElement *mp4mux_ = nullptr;
+    GstElement *queue5_ = nullptr;
+    GstElement *filesink_ = nullptr;
+    
     std::ofstream outFile;
 
 };

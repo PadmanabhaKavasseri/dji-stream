@@ -39,17 +39,19 @@ namespace edge_app {
 void StreamProcessorThread::SetupPipeline(){
     // Initialize GStreamer
     gst_init(nullptr, nullptr);
+
     // Create pipeline
     pipeline_ = gst_pipeline_new("video_pipeline");
     if (!pipeline_) {
         std::cerr << "Failed to create pipeline." << std::endl;
     }
+
     // Create elements
     appsrc_ = gst_element_factory_make("appsrc", "app_src");
     // Set appsrc properties
     GstCaps *caps = gst_caps_new_simple(
     "video/x-h264",
-    "stream-format", G_TYPE_STRING, "avc", // or "byte-stream" if using byte-stream format
+    "stream-format", G_TYPE_STRING, "byte-stream", // or "byte-stream" if using byte-stream format
     "alignment", G_TYPE_STRING, "au",      // alignment must be "au" for access units
     nullptr
     );
@@ -59,19 +61,49 @@ void StreamProcessorThread::SetupPipeline(){
     app_queue_ = gst_element_factory_make("queue", "app_queue");
     app_queue2_ = gst_element_factory_make("queue", "app_queue2");
     h264parse_ = gst_element_factory_make("h264parse", "h264_parser");
-    decoder_ = gst_element_factory_make("qtic2vdec", "h264_decoder");
+    // decoder_ = gst_element_factory_make("qtic2vdec", "h264_decoder");
+    decoder_ = gst_element_factory_make("avdec_h264", "h264_decoder");
     waylandsink_ = gst_element_factory_make("waylandsink", "wayland_sink");
 
+    videoconvert_ = gst_element_factory_make("videoconvert", "video_convert");
 
-    if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !waylandsink_) {
-        std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
-    }
+    GstCaps *video_caps_ = gst_caps_new_simple( "video/x-raw", "format", G_TYPE_STRING, "NV12", "width", G_TYPE_INT, 1280, "height", G_TYPE_INT, 720, nullptr );
+
+    qtic2venc_ = gst_element_factory_make("qtic2venc", "h264_encoder"); g_object_set(qtic2venc_, "target-bitrate", 6000000, nullptr);
+
+    queue3_ = gst_element_factory_make("queue", "queue3");
+    h264parse2_ = gst_element_factory_make("h264parse", "h264_parser2");
+    queue4_ = gst_element_factory_make("queue", "queue4"); 
+    mp4mux_ = gst_element_factory_make("mp4mux", "mp4_mux"); 
+    queue5_ = gst_element_factory_make("queue", "queue5"); 
+    filesink_ = gst_element_factory_make("filesink", "file_sink");
+    g_object_set(filesink_, "location", "/data/djidronedump.mp4", nullptr);
+
+    // if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !waylandsink_) {
+    //     std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
+    // }
+
+    //divya changes
+    if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !videoconvert_ || !queue2_ || !qtic2venc_ || !queue3_ || !h264parse2_ || !queue4_ || !mp4mux_ || !queue5_ || !filesink_) { std::cerr << "Failed to create one or more GStreamer elements." << std::endl; return; }
+
+    // // Add elements to the pipeline
+    // gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr);
+
     // Add elements to the pipeline
-    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr);
-    // Link elements
-    if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr)) {
-        std::cerr << "Failed to link GStreamer elements." << std::endl;
-    }
+    // gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, app_queue2_, decoder_, waylandsink_, nullptr);
+    //divya changes
+    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, videoconvert_, queue2_, qtic2venc_, queue3_, h264parse2_, queue4_, mp4mux_, queue5_, filesink_, nullptr);
+    // Link elements divya
+    if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, decoder_, videoconvert_, nullptr)) { std::cerr << "Failed to link GStreamer elements: appsrc to videoconvert." << std::endl; return; }
+    if (!gst_element_link_filtered(videoconvert_, queue2_, video_caps_)) { std::cerr << "Failed to link videoconvert to queue2 with caps." << std::endl; return; }
+    gst_caps_unref(video_caps_);
+
+    if (!gst_element_link_many(queue2_, qtic2venc_, queue3_, h264parse2_, queue4_, mp4mux_, queue5_, filesink_, nullptr)) { std::cerr << "Failed to link GStreamer elements: queue2 to filesink." << std::endl; return; }
+
+    // // Link elements
+    // if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr)) {
+    //     std::cerr << "Failed to link GStreamer elements." << std::endl;
+    // }
     // Set the pipeline to playing state
     gst_element_set_state(pipeline_, GST_STATE_PLAYING);
 
@@ -109,13 +141,13 @@ StreamProcessorThread::StreamProcessorThread(const std::string& name)
     : processor_name_(name) {
     processor_start_ = false;
 
-    // SetupPipeline();
+    SetupPipeline();
 
-    const std::string fileName = "output.bin";
-    outFile.open(fileName, std::ios::binary);
-    if (!outFile) {
-        throw std::runtime_error("Failed to open the file for writing.");
-    }
+    // const std::string fileName = "output.bin";
+    // outFile.open(fileName, std::ios::binary);
+    // if (!outFile) {
+    //     throw std::runtime_error("Failed to open the file for writing.");
+    // }
 
 }
 
@@ -202,8 +234,8 @@ void StreamProcessorThread::ImageProcess() {
 
         //my code
         // Push the data into the GStreamer appsrc
-        // PushDataToAppsrc(appsrc_data);
-        WriteDataToFile(appsrc_data);
+        PushDataToAppsrc(appsrc_data);
+        // WriteDataToFile(appsrc_data);
         //maybe in here?
         // stream_decoder_->Decode(
         //     decode_data.data(), decode_data.size(),
