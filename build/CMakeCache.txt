@@ -232,7 +232,16 @@ dji_edge_sdk_demo_BINARY_DIR:STATIC=/home/user/Edge-SDK/build
 dji_edge_sdk_demo_SOURCE_DIR:STATIC=/home/user/Edge-SDK
 
 //Dependencies for the target
-edge_sample_LIB_DEPENDS:STATIC=general;-ledgesdk;general;-lstdc++;general;-lcrypto;general;-lssh2;general;gstreamer-1.0;general;gobject-2.0;general;glib-2.0;
+edge_sample_LIB_DEPENDS:STATIC=general;-ledgesdk;general;-lstdc++;general;-lcrypto;general;-lssh2;general;gstreamer-1.0;general;gobject-2.0;general;glib-2.0;general;avcodec;general;avformat;general;swscale;
+
+//Path to a library.
+pkgcfg_lib_FFMPEG_avcodec:FILEPATH=/usr/lib/x86_64-linux-gnu/libavcodec.so
+
+//Path to a library.
+pkgcfg_lib_FFMPEG_avformat:FILEPATH=/usr/lib/x86_64-linux-gnu/libavformat.so
+
+//Path to a library.
+pkgcfg_lib_FFMPEG_swscale:FILEPATH=/usr/lib/x86_64-linux-gnu/libswscale.so
 
 //Path to a library.
 pkgcfg_lib_GSTREAMER_glib-2.0:FILEPATH=/usr/lib/x86_64-linux-gnu/libglib-2.0.so
@@ -375,10 +384,39 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+FFMPEG_CFLAGS:INTERNAL=-I/usr/include/x86_64-linux-gnu
+FFMPEG_CFLAGS_I:INTERNAL=
+FFMPEG_CFLAGS_OTHER:INTERNAL=
+FFMPEG_FOUND:INTERNAL=1
+FFMPEG_INCLUDEDIR:INTERNAL=
 //ADVANCED property for variable: FFMPEG_INCLUDE_DIR
 FFMPEG_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//All presently found FFMPEG libraries.
-FFMPEG_LIBRARIES:INTERNAL=/usr/lib/x86_64-linux-gnu/libavcodec.so;/usr/lib/x86_64-linux-gnu/libavformat.so;/usr/lib/x86_64-linux-gnu/libavutil.so;/usr/lib/x86_64-linux-gnu/libswscale.so;/usr/lib/x86_64-linux-gnu/libtheora.so;/usr/lib/x86_64-linux-gnu/libz.so
+FFMPEG_INCLUDE_DIRS:INTERNAL=/usr/include/x86_64-linux-gnu
+FFMPEG_LDFLAGS:INTERNAL=-lavcodec;-lavformat;-lswscale
+FFMPEG_LDFLAGS_OTHER:INTERNAL=
+FFMPEG_LIBDIR:INTERNAL=
+FFMPEG_LIBRARIES:INTERNAL=avcodec;avformat;swscale
+FFMPEG_LIBRARY_DIRS:INTERNAL=
+FFMPEG_LIBS:INTERNAL=
+FFMPEG_LIBS_L:INTERNAL=
+FFMPEG_LIBS_OTHER:INTERNAL=
+FFMPEG_LIBS_PATHS:INTERNAL=
+FFMPEG_MODULE_NAME:INTERNAL=
+FFMPEG_PREFIX:INTERNAL=
+FFMPEG_STATIC_CFLAGS:INTERNAL=-I/usr/include/x86_64-linux-gnu
+FFMPEG_STATIC_CFLAGS_I:INTERNAL=
+FFMPEG_STATIC_CFLAGS_OTHER:INTERNAL=
+FFMPEG_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/x86_64-linux-gnu
+FFMPEG_STATIC_LDFLAGS:INTERNAL=-lavformat;-lm;-lxml2;-lbz2;-lgme;-lstdc++;-lopenmpt;-lstdc++;-lchromaprint;-lbluray;-lz;-lgnutls;-lssh;-ldl;-lavcodec;-lvpx;-lm;-lvpx;-lm;-lvpx;-lm;-lvpx;-lm;-lwebpmux;-lwebp;-lm;-llzma;-lrsvg-2;-lm;-lgio-2.0;-lgdk_pixbuf-2.0;-lgobject-2.0;-lglib-2.0;-lcairo;-lzvbi;-lm;-lpthread;-lm;-lpng;-lz;-lsnappy;-lstdc++;-lz;-laom;-lm;-lpthread;-lcodec2;-lgsm;-lmp3lame;-lm;-lopenjp2;-lopus;-lm;-lshine;-lspeex;-ltheoraenc;-ltheoradec;-logg;-ltwolame;-lvorbis;-lvorbisenc;-lwavpack;-lwebp;-lx264;-lx265;-lxvidcore;-pthread;-lva;-ldl;-lswresample;-lm;-lsoxr;-lswscale;-lm;-lavutil;-pthread;-lva-drm;-lva;-lva-x11;-lva;-lvdpau;-lX11;-lm;-ldrm;-lOpenCL;-lva;-lXv;-lX11;-lXext;-ldl
+FFMPEG_STATIC_LDFLAGS_OTHER:INTERNAL=-pthread
+FFMPEG_STATIC_LIBDIR:INTERNAL=
+FFMPEG_STATIC_LIBRARIES:INTERNAL=avformat;m;xml2;bz2;gme;stdc++;openmpt;stdc++;chromaprint;bluray;z;gnutls;ssh;dl;avcodec;vpx;m;vpx;m;vpx;m;vpx;m;webpmux;webp;m;lzma;rsvg-2;m;gio-2.0;gdk_pixbuf-2.0;gobject-2.0;glib-2.0;cairo;zvbi;m;pthread;m;png;z;snappy;stdc++;z;aom;m;pthread;codec2;gsm;mp3lame;m;openjp2;opus;m;shine;speex;theoraenc;theoradec;ogg;twolame;vorbis;vorbisenc;wavpack;webp;x264;x265;xvidcore;va;dl;swresample;m;soxr;swscale;m;avutil;va-drm;va;va-x11;va;vdpau;X11;m;drm;OpenCL;va;Xv;X11;Xext;dl
+FFMPEG_STATIC_LIBRARY_DIRS:INTERNAL=
+FFMPEG_STATIC_LIBS:INTERNAL=
+FFMPEG_STATIC_LIBS_L:INTERNAL=
+FFMPEG_STATIC_LIBS_OTHER:INTERNAL=
+FFMPEG_STATIC_LIBS_PATHS:INTERNAL=
+FFMPEG_VERSION:INTERNAL=
 //ADVANCED property for variable: FFMPEG_avcodec_LIBRARY
 FFMPEG_avcodec_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: FFMPEG_avformat_LIBRARY
@@ -391,6 +429,21 @@ FFMPEG_dc1394_LIBRARY-ADVANCED:INTERNAL=1
 FFMPEG_dts_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: FFMPEG_gsm_LIBRARY
 FFMPEG_gsm_LIBRARY-ADVANCED:INTERNAL=1
+FFMPEG_libavcodec_INCLUDEDIR:INTERNAL=/usr/include/x86_64-linux-gnu
+FFMPEG_libavcodec_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+FFMPEG_libavcodec_MODULE_NAME:INTERNAL=libavcodec
+FFMPEG_libavcodec_PREFIX:INTERNAL=/usr
+FFMPEG_libavcodec_VERSION:INTERNAL=58.54.100
+FFMPEG_libavformat_INCLUDEDIR:INTERNAL=/usr/include/x86_64-linux-gnu
+FFMPEG_libavformat_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+FFMPEG_libavformat_MODULE_NAME:INTERNAL=libavformat
+FFMPEG_libavformat_PREFIX:INTERNAL=/usr
+FFMPEG_libavformat_VERSION:INTERNAL=58.29.100
+FFMPEG_libswscale_INCLUDEDIR:INTERNAL=/usr/include/x86_64-linux-gnu
+FFMPEG_libswscale_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+FFMPEG_libswscale_MODULE_NAME:INTERNAL=libswscale
+FFMPEG_libswscale_PREFIX:INTERNAL=/usr
+FFMPEG_libswscale_VERSION:INTERNAL=5.5.100
 //ADVANCED property for variable: FFMPEG_swscale_LIBRARY
 FFMPEG_swscale_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: FFMPEG_theora_LIBRARY
@@ -440,8 +493,16 @@ GSTREAMER_gstreamer-1.0_PREFIX:INTERNAL=
 GSTREAMER_gstreamer-1.0_VERSION:INTERNAL=
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
+__pkg_config_arguments_FFMPEG:INTERNAL=REQUIRED;libavcodec;libavformat;libswscale
 __pkg_config_arguments_GSTREAMER:INTERNAL=REQUIRED;gstreamer-1.0
+__pkg_config_checked_FFMPEG:INTERNAL=1
 __pkg_config_checked_GSTREAMER:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_FFMPEG_avcodec
+pkgcfg_lib_FFMPEG_avcodec-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_FFMPEG_avformat
+pkgcfg_lib_FFMPEG_avformat-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_FFMPEG_swscale
+pkgcfg_lib_FFMPEG_swscale-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_GSTREAMER_glib-2.0
 pkgcfg_lib_GSTREAMER_glib-2.0-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_GSTREAMER_gobject-2.0

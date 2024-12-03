@@ -82,12 +82,6 @@ stream_processor_thread.h
 fstream
 -
 
-/home/user/Edge-SDK/examples/liveview/stream_decoder.cc
-stream_decoder.h
-/home/user/Edge-SDK/examples/liveview/stream_decoder.h
-logger.h
-/home/user/Edge-SDK/examples/liveview/logger.h
-
 /home/user/Edge-SDK/examples/liveview/stream_decoder.h
 memory
 -
@@ -144,6 +138,12 @@ gst/gst.h
 glib.h
 -
 gst/app/gstappsrc.h
+-
+libavcodec/avcodec.h
+-
+libavformat/avformat.h
+-
+libswscale/swscale.h
 -
 
 /usr/include/glib-2.0/glib-object.h
