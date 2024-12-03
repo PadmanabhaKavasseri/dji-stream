@@ -46,6 +46,7 @@ extern "C" {
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 #include <libavutil/frame.h>
+#include <libavutil/imgutils.h>
 }
 
 
@@ -82,7 +83,7 @@ class StreamProcessorThread {
 
     void SetupPipeline();
 
-    void PushDataToAppsrc(const std::vector<uint8_t>& data);
+    void PushFrameToAppsrc(AVFrame *frame);
 
     void WriteDataToFile(const std::vector<uint8_t>& data);
 

@@ -221,11 +221,13 @@ CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/inc
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/dict.h
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/error.h
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/frame.h
+CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/imgutils.h
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/intfloat.h
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/log.h
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/macros.h
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/mathematics.h
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/mem.h
+CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/pixdesc.h
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/pixfmt.h
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/rational.h
 CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o: /usr/include/x86_64-linux-gnu/libavutil/samplefmt.h

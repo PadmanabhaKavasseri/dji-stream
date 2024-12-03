@@ -222,11 +222,13 @@ CMakeFiles/test_liveview.dir/examples/liveview/test_liveview_main.cc.o
  /usr/include/x86_64-linux-gnu/libavutil/dict.h
  /usr/include/x86_64-linux-gnu/libavutil/error.h
  /usr/include/x86_64-linux-gnu/libavutil/frame.h
+ /usr/include/x86_64-linux-gnu/libavutil/imgutils.h
  /usr/include/x86_64-linux-gnu/libavutil/intfloat.h
  /usr/include/x86_64-linux-gnu/libavutil/log.h
  /usr/include/x86_64-linux-gnu/libavutil/macros.h
  /usr/include/x86_64-linux-gnu/libavutil/mathematics.h
  /usr/include/x86_64-linux-gnu/libavutil/mem.h
+ /usr/include/x86_64-linux-gnu/libavutil/pixdesc.h
  /usr/include/x86_64-linux-gnu/libavutil/pixfmt.h
  /usr/include/x86_64-linux-gnu/libavutil/rational.h
  /usr/include/x86_64-linux-gnu/libavutil/samplefmt.h

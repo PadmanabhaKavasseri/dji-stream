@@ -46,64 +46,36 @@ void StreamProcessorThread::SetupPipeline(){
         std::cerr << "Failed to create pipeline." << std::endl;
     }
 
-    // Create elements
+    //create elements
     appsrc_ = gst_element_factory_make("appsrc", "app_src");
-    // Set appsrc properties
-    GstCaps *caps = gst_caps_new_simple(
-    "video/x-h264",
-    "stream-format", G_TYPE_STRING, "byte-stream", // or "byte-stream" if using byte-stream format
-    "alignment", G_TYPE_STRING, "au",      // alignment must be "au" for access units
-    nullptr
-    );
+    app_queue_ = gst_element_factory_make("queue", "app_queue");
+    waylandsink_ = gst_element_factory_make("waylandsink", "wayland_sink");
+
+    // Check if elements were created successfully 
+    if (!appsrc_ || !app_queue_ || !waylandsink_) { 
+        std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
+         return; 
+     }
+
+    // Set appsrc properties 
+    GstCaps *caps = gst_caps_new_simple( "video/x-raw", "format", G_TYPE_STRING, "I420", // YUV format 
+        "width", G_TYPE_INT, 1280, // Set your width 
+        "height", G_TYPE_INT, 720, // Set your height 
+        "framerate", GST_TYPE_FRACTION, 30, 1, // Example framerate 
+        nullptr );
     g_object_set(appsrc_, "caps", caps, nullptr);
     gst_caps_unref(caps);
     g_object_set(appsrc_, "block", FALSE, nullptr);
-    app_queue_ = gst_element_factory_make("queue", "app_queue");
-    app_queue2_ = gst_element_factory_make("queue", "app_queue2");
-    h264parse_ = gst_element_factory_make("h264parse", "h264_parser");
-    // decoder_ = gst_element_factory_make("qtic2vdec", "h264_decoder");
-    decoder_ = gst_element_factory_make("avdec_h264", "h264_decoder");
-    waylandsink_ = gst_element_factory_make("waylandsink", "wayland_sink");
-
-    videoconvert_ = gst_element_factory_make("videoconvert", "video_convert");
-
-    GstCaps *video_caps_ = gst_caps_new_simple( "video/x-raw", "format", G_TYPE_STRING, "NV12", "width", G_TYPE_INT, 1280, "height", G_TYPE_INT, 720, nullptr );
-
-    qtic2venc_ = gst_element_factory_make("qtic2venc", "h264_encoder"); g_object_set(qtic2venc_, "target-bitrate", 6000000, nullptr);
-
-    queue3_ = gst_element_factory_make("queue", "queue3");
-    h264parse2_ = gst_element_factory_make("h264parse", "h264_parser2");
-    queue4_ = gst_element_factory_make("queue", "queue4"); 
-    mp4mux_ = gst_element_factory_make("mp4mux", "mp4_mux"); 
-    queue5_ = gst_element_factory_make("queue", "queue5"); 
-    filesink_ = gst_element_factory_make("filesink", "file_sink");
-    g_object_set(filesink_, "location", "/data/djidronedump.mp4", nullptr);
-
-    // if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !waylandsink_) {
-    //     std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
-    // }
-
-    //divya changes
-    if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !videoconvert_ || !app_queue2_ || !qtic2venc_ || !queue3_ || !h264parse2_ || !queue4_ || !mp4mux_ || !queue5_ || !filesink_) { std::cerr << "Failed to create one or more GStreamer elements." << std::endl; return; }
-
-    // // Add elements to the pipeline
-    // gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr);
 
     // Add elements to the pipeline
-    // gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, app_queue2_, decoder_, waylandsink_, nullptr);
-    //divya changes
-    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, videoconvert_, app_queue2_, qtic2venc_, queue3_, h264parse2_, queue4_, mp4mux_, queue5_, filesink_, nullptr);
-    // Link elements divya
-    if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, decoder_, videoconvert_, nullptr)) { std::cerr << "Failed to link GStreamer elements: appsrc to videoconvert." << std::endl; return; }
-    if (!gst_element_link_filtered(videoconvert_, app_queue2_, video_caps_)) { std::cerr << "Failed to link videoconvert to queue2 with caps." << std::endl; return; }
-    gst_caps_unref(video_caps_);
+    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, waylandsink_, nullptr);
 
-    if (!gst_element_link_many(app_queue2_, qtic2venc_, queue3_, h264parse2_, queue4_, mp4mux_, queue5_, filesink_, nullptr)) { std::cerr << "Failed to link GStreamer elements: queue2 to filesink." << std::endl; return; }
+    // Link elements 
+    if (!gst_element_link_many(appsrc_, app_queue_, waylandsink_, nullptr)) { 
+        std::cerr << "Failed to link GStreamer elements: appsrc to waylandsink." << std::endl; 
+        return;
+    }
 
-    // // Link elements
-    // if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr)) {
-    //     std::cerr << "Failed to link GStreamer elements." << std::endl;
-    // }
     // Set the pipeline to playing state
     gst_element_set_state(pipeline_, GST_STATE_PLAYING);
 
@@ -118,21 +90,35 @@ void StreamProcessorThread::WriteDataToFile(const std::vector<uint8_t>& data){
     }
 }
 
-void StreamProcessorThread::PushDataToAppsrc(const std::vector<uint8_t>& data){
+void StreamProcessorThread::PushFrameToAppsrc(AVFrame *frame){
     if (!appsrc_) {
         std::cerr << "Error: appsrc is not initialized." << std::endl;
         return;
     }
-    // std::cout << "StreamProcessorThread::PushDataToAppsrc: data: " << data.size() << std::endl;
-    // Create a new GStreamer buffer and fill it with the data
-    GstBuffer *buffer = gst_buffer_new_allocate(nullptr, data.size(), nullptr);
-    gst_buffer_fill(buffer, 0, data.data(), data.size());
+    // Calculate the buffer size needed for the frame
+    int size = av_image_get_buffer_size((AVPixelFormat)frame->format, frame->width, frame->height, 1);
+
+    // Create a new GStreamer buffer and fill it with the frame data
+    GstBuffer *buffer = gst_buffer_new_allocate(nullptr, size, nullptr);
+
+    // Map the buffer
+    GstMapInfo map;
+    if (!gst_buffer_map(buffer, &map, GST_MAP_WRITE)) { 
+        std::cerr << "Failed to map GStreamer buffer." << std::endl; gst_buffer_unref(buffer); 
+        return; 
+    }
+    // Copy the frame data to the buffer 
+    av_image_copy_to_buffer(map.data, size, frame->data, frame->linesize, (AVPixelFormat)frame->format, frame->width, frame->height, 1);
+
+    // Unmap the buffer 
+    gst_buffer_unmap(buffer, &map);
+
     // Push the buffer into the appsrc element
     GstFlowReturn ret;
     g_signal_emit_by_name(appsrc_, "push-buffer", buffer, &ret);
     gst_buffer_unref(buffer);
-    if (ret != GST_FLOW_OK) {
-        std::cerr << "Failed to push buffer to appsrc. GstFlowReturn: " << ret << std::endl;
+    if (ret != GST_FLOW_OK) { 
+        std::cerr << "Failed to push buffer to appsrc. GstFlowReturn: " << ret << std::endl; 
     }
 }
 
@@ -141,7 +127,7 @@ StreamProcessorThread::StreamProcessorThread(const std::string& name)
     : processor_name_(name) {
     processor_start_ = false;
 
-    // SetupPipeline();
+    SetupPipeline();
 
     // const std::string fileName = "output.bin";
     // outFile.open(fileName, std::ios::binary);
@@ -213,7 +199,7 @@ void StreamProcessorThread::DecodeFrame(const uint8_t *data, size_t length){
                     std::cerr << "Error during decoding: " << ret << std::endl; 
                     break; 
                 } 
-                
+
                 if (pFrameYUV->width != decode_width || pFrameYUV->height != decode_hight) { 
                     decode_width = pFrameYUV->width; 
                     decode_hight = pFrameYUV->height; 
@@ -223,15 +209,13 @@ void StreamProcessorThread::DecodeFrame(const uint8_t *data, size_t length){
                     } 
                     INFO("New H264 Width: %d, Height: %d", decode_width, decode_hight); 
                 } 
-                // Process the frame as needed here (e.g., scaling, converting, etc.) 
+                // Push the frame data to appsrc 
+                PushFrameToAppsrc(pFrameYUV);
             }
         }
+        // Free the packet's data and reset it 
+        av_packet_unref(&pkt);
     }
-
-
-
-
-
 }
 
 void StreamProcessorThread::InitDecoder(){
