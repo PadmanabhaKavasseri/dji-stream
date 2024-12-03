@@ -132,6 +132,7 @@ class StreamProcessorThread {
     const AVCodec *pCodec = nullptr;
     AVCodecParserContext *pCodecParserCtx = nullptr;
     AVFrame *pFrameYUV = nullptr;
+    SwsContext *pSwsCtx = nullptr;
 
 };
 

@@ -193,6 +193,8 @@ void StreamProcessorThread::InitDecoder(){
     pCodecCtx->thread_count = 4;
     auto ret = avcodec_open2(pCodecCtx, pCodec, nullptr);
     pFrameYUV = av_frame_alloc();
+    pSwsCtx = nullptr;
+
     std::cout << "Init Decoder!!!!!!!!!!!!" << std::endl;
 }
 
