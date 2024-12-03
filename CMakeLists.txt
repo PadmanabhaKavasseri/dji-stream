@@ -41,7 +41,7 @@ link_libraries(${GSTREAMER_LIBRARIES})
 set(ENV{PKG_CONFIG_PATH} "/local/mnt/workspace/pkavasseri/blds/LE/sdk/sysroots/aarch64-oe-linux/lib/pkgconfig")
 
 # Find FFmpeg check
-pkg_check_modules(FFMPEG REQUIRED libavcodec libavformat libswscale)
+pkg_check_modules(FFMPEG REQUIRED libavcodec libavformat libswscale libavutil)
 include_directories(${FFMPEG_INCLUDE_DIRS})
 link_directories(${FFMPEG_LIBRARY_DIRS})
 link_libraries(${FFMPEG_LIBRARIES})

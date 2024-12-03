@@ -45,6 +45,7 @@ extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
+#include <libavutil/frame.h>
 }
 
 
@@ -130,6 +131,7 @@ class StreamProcessorThread {
     AVCodecContext *pCodecCtx = nullptr;
     const AVCodec *pCodec = nullptr;
     AVCodecParserContext *pCodecParserCtx = nullptr;
+    AVFrame *pFrameYUV = nullptr;
 
 };
 
