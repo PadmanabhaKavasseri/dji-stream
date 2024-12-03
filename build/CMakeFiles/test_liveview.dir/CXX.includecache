@@ -95,12 +95,6 @@ glib.h
 -
 gst/app/gstappsrc.h
 -
-libavcodec/avcodec.h
--
-libavformat/avformat.h
--
-libswscale/swscale.h
--
 
 /home/user/Edge-SDK/examples/liveview/test_liveview_main.cc
 unistd.h
