@@ -141,7 +141,7 @@ StreamProcessorThread::StreamProcessorThread(const std::string& name)
     : processor_name_(name) {
     processor_start_ = false;
 
-    SetupPipeline();
+    // SetupPipeline();
 
     // const std::string fileName = "output.bin";
     // outFile.open(fileName, std::ios::binary);
@@ -177,12 +177,22 @@ void StreamProcessorThread::InputStream(const uint8_t* data, size_t length) {
     decode_vector_cv_.notify_one();
 }
 
+void DecodeFrame(const uint8_t *data, size_t length){
+    
+}
+
+void StreamProcessorThread::InitDecoder(){
+    avcodec_register_all();
+    std::cout << "Init Decoder!!!!!!!!!!!!" << std::endl;
+}
+
 int32_t StreamProcessorThread::Start() {
     if (processor_start_) {
         WARN("repeat start processor");
         return -1;
     }
     processor_start_ = true;
+    InitDecoder();
     // if (stream_decoder_) {
     //     auto ret = stream_decoder_->Init();
     //     if (ret < 0) {
@@ -234,8 +244,10 @@ void StreamProcessorThread::ImageProcess() {
 
         //my code
         // Push the data into the GStreamer appsrc
-        PushDataToAppsrc(appsrc_data);
+        // PushDataToAppsrc(appsrc_data);
         // WriteDataToFile(appsrc_data);
+
+        //should call decoder here which calls push to appsrc inside
         //maybe in here?
         // stream_decoder_->Decode(
         //     decode_data.data(), decode_data.size(),

@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/user/Edge-SDK/examples/common/util_misc.cc" "/home/user/Edge-SDK/build/CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.o"
-  "/home/user/Edge-SDK/examples/init/key_store_default.cc" "/home/user/Edge-SDK/build/CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.o"
-  "/home/user/Edge-SDK/examples/init/pre_init.cc" "/home/user/Edge-SDK/build/CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.o"
-  "/home/user/Edge-SDK/examples/liveview/sample_liveview.cc" "/home/user/Edge-SDK/build/CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o"
-  "/home/user/Edge-SDK/examples/liveview/stream_decoder.cc" "/home/user/Edge-SDK/build/CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.o"
-  "/home/user/Edge-SDK/examples/liveview/stream_processor_thread.cc" "/home/user/Edge-SDK/build/CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o"
+  "/mnt/c/Users/pkavasse/dev/dji-stream/examples/common/util_misc.cc" "/mnt/c/Users/pkavasse/dev/dji-stream/build/CMakeFiles/edge_sample.dir/examples/common/util_misc.cc.o"
+  "/mnt/c/Users/pkavasse/dev/dji-stream/examples/init/key_store_default.cc" "/mnt/c/Users/pkavasse/dev/dji-stream/build/CMakeFiles/edge_sample.dir/examples/init/key_store_default.cc.o"
+  "/mnt/c/Users/pkavasse/dev/dji-stream/examples/init/pre_init.cc" "/mnt/c/Users/pkavasse/dev/dji-stream/build/CMakeFiles/edge_sample.dir/examples/init/pre_init.cc.o"
+  "/mnt/c/Users/pkavasse/dev/dji-stream/examples/liveview/sample_liveview.cc" "/mnt/c/Users/pkavasse/dev/dji-stream/build/CMakeFiles/edge_sample.dir/examples/liveview/sample_liveview.cc.o"
+  "/mnt/c/Users/pkavasse/dev/dji-stream/examples/liveview/stream_decoder.cc" "/mnt/c/Users/pkavasse/dev/dji-stream/build/CMakeFiles/edge_sample.dir/examples/liveview/stream_decoder.cc.o"
+  "/mnt/c/Users/pkavasse/dev/dji-stream/examples/liveview/stream_processor_thread.cc" "/mnt/c/Users/pkavasse/dev/dji-stream/build/CMakeFiles/edge_sample.dir/examples/liveview/stream_processor_thread.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -26,6 +26,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/gstreamer-1.0"
   "/usr/include/glib-2.0"
   "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+  "/usr/include/x86_64-linux-gnu"
   )
 
 # Targets to which this target links.

@@ -1,4 +1,4 @@
-/home/user/Edge-SDK/build/CMakeFiles/rebuild_cache.dir
-/home/user/Edge-SDK/build/CMakeFiles/edit_cache.dir
-/home/user/Edge-SDK/build/CMakeFiles/edge_sample.dir
-/home/user/Edge-SDK/build/CMakeFiles/test_liveview.dir
+/mnt/c/Users/pkavasse/dev/dji-stream/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/pkavasse/dev/dji-stream/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/pkavasse/dev/dji-stream/build/CMakeFiles/test_liveview.dir
+/mnt/c/Users/pkavasse/dev/dji-stream/build/CMakeFiles/edge_sample.dir

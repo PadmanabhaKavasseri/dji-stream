@@ -85,6 +85,10 @@ class StreamProcessorThread {
 
     void WriteDataToFile(const std::vector<uint8_t>& data);
 
+    void InitDecoder();
+
+    void DecodeFrame(const uint8_t *data, size_t length);
+
     // void SetupRTSPServer();
 
    protected:
