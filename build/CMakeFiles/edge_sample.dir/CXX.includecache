@@ -12,6 +12,18 @@ error_code/error_code.h
 
 ../include/error_code/error_code.h
 
+../include/liveview.h
+liveview/liveview.h
+../include/liveview/liveview.h
+
+../include/liveview/liveview.h
+functional
+-
+memory
+-
+error_code.h
+../include/liveview/error_code.h
+
 ../include/logger.h
 logger/logger.h
 ../include/logger/logger.h
@@ -39,6 +51,36 @@ thread
 -
 error_code.h
 /home/user/Edge-SDK/examples/liveview/error_code.h
+
+/home/user/Edge-SDK/examples/liveview/sample_liveview.cc
+sample_liveview.h
+/home/user/Edge-SDK/examples/liveview/sample_liveview.h
+unistd.h
+-
+liveview/liveview.h
+/home/user/Edge-SDK/examples/liveview/liveview/liveview.h
+iostream
+-
+fstream
+-
+
+/home/user/Edge-SDK/examples/liveview/sample_liveview.h
+chrono
+-
+atomic
+-
+error_code.h
+/home/user/Edge-SDK/examples/liveview/error_code.h
+liveview.h
+/home/user/Edge-SDK/examples/liveview/liveview.h
+logger.h
+/home/user/Edge-SDK/examples/liveview/logger.h
+stream_decoder.h
+/home/user/Edge-SDK/examples/liveview/stream_decoder.h
+stream_processor_thread.h
+/home/user/Edge-SDK/examples/liveview/stream_processor_thread.h
+fstream
+-
 
 /home/user/Edge-SDK/examples/liveview/stream_decoder.h
 memory
@@ -96,6 +138,12 @@ gst/gst.h
 glib.h
 -
 gst/app/gstappsrc.h
+-
+libavcodec/avcodec.h
+-
+libavformat/avformat.h
+-
+libswscale/swscale.h
 -
 
 /usr/include/glib-2.0/glib-object.h
