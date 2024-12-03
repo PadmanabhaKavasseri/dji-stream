@@ -199,23 +199,31 @@ void StreamProcessorThread::DecodeFrame(const uint8_t *data, size_t length){
         pData += processedLen;
 
         if (pkt.size > 0) {
-            int gotPicture = 0;
-            avcodec_decode_video2(pCodecCtx, pFrameYUV, &gotPicture, &pkt);
+            int ret = avcodec_send_packet(pCodecCtx, &pkt);
+            if (ret < 0) { 
+                std::cerr << "Error sending a packet for decoding: " << ret << std::endl; break; 
+            }
 
-            if (!gotPicture) {
-                continue;
-            } else {
-                if (pFrameYUV->width != decode_width ||
-                    pFrameYUV->height != decode_hight) {
-                    decode_width = pFrameYUV->width;
-                    decode_hight = pFrameYUV->height;
-                    if (nullptr != pSwsCtx) {
-                        sws_freeContext(pSwsCtx);
-                        pSwsCtx = nullptr;
-                    }
-                    INFO("New H264 Width: %d, Height: %d", decode_width,
-                         decode_hight);
-                }
+            while (ret >= 0) { 
+                ret = avcodec_receive_frame(pCodecCtx, pFrameYUV); 
+                if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) { 
+                    break; 
+                } 
+                else if (ret < 0) { 
+                    std::cerr << "Error during decoding: " << ret << std::endl; 
+                    break; 
+                } 
+                
+                if (pFrameYUV->width != decode_width || pFrameYUV->height != decode_hight) { 
+                    decode_width = pFrameYUV->width; 
+                    decode_hight = pFrameYUV->height; 
+                    if (nullptr != pSwsCtx) { 
+                        sws_freeContext(pSwsCtx); 
+                        pSwsCtx = nullptr; 
+                    } 
+                    INFO("New H264 Width: %d, Height: %d", decode_width, decode_hight); 
+                } 
+                // Process the frame as needed here (e.g., scaling, converting, etc.) 
             }
         }
     }
