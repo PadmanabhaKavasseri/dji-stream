@@ -37,6 +37,11 @@ include_directories(${GSTREAMER_INCLUDE_DIRS})
 link_directories(${GSTREAMER_LIBRARY_DIRS})
 link_libraries(${GSTREAMER_LIBRARIES})
 
+# Find FFmpeg check
+pkg_check_modules(FFMPEG REQUIRED libavcodec libavformat libswscale)
+include_directories(${FFMPEG_INCLUDE_DIRS})
+link_directories(${FFMPEG_LIBRARY_DIRS})
+link_libraries(${FFMPEG_LIBRARIES})
 
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third_party)

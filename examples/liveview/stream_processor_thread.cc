@@ -84,7 +84,7 @@ void StreamProcessorThread::SetupPipeline(){
     // }
 
     //divya changes
-    if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !videoconvert_ || !queue2_ || !qtic2venc_ || !queue3_ || !h264parse2_ || !queue4_ || !mp4mux_ || !queue5_ || !filesink_) { std::cerr << "Failed to create one or more GStreamer elements." << std::endl; return; }
+    if (!appsrc_ || !app_queue_ || !h264parse_ || !decoder_ || !videoconvert_ || !app_queue2_ || !qtic2venc_ || !queue3_ || !h264parse2_ || !queue4_ || !mp4mux_ || !queue5_ || !filesink_) { std::cerr << "Failed to create one or more GStreamer elements." << std::endl; return; }
 
     // // Add elements to the pipeline
     // gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr);
@@ -92,13 +92,13 @@ void StreamProcessorThread::SetupPipeline(){
     // Add elements to the pipeline
     // gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, app_queue2_, decoder_, waylandsink_, nullptr);
     //divya changes
-    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, videoconvert_, queue2_, qtic2venc_, queue3_, h264parse2_, queue4_, mp4mux_, queue5_, filesink_, nullptr);
+    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, h264parse_, decoder_, videoconvert_, app_queue2_, qtic2venc_, queue3_, h264parse2_, queue4_, mp4mux_, queue5_, filesink_, nullptr);
     // Link elements divya
     if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, decoder_, videoconvert_, nullptr)) { std::cerr << "Failed to link GStreamer elements: appsrc to videoconvert." << std::endl; return; }
-    if (!gst_element_link_filtered(videoconvert_, queue2_, video_caps_)) { std::cerr << "Failed to link videoconvert to queue2 with caps." << std::endl; return; }
+    if (!gst_element_link_filtered(videoconvert_, app_queue2_, video_caps_)) { std::cerr << "Failed to link videoconvert to queue2 with caps." << std::endl; return; }
     gst_caps_unref(video_caps_);
 
-    if (!gst_element_link_many(queue2_, qtic2venc_, queue3_, h264parse2_, queue4_, mp4mux_, queue5_, filesink_, nullptr)) { std::cerr << "Failed to link GStreamer elements: queue2 to filesink." << std::endl; return; }
+    if (!gst_element_link_many(app_queue2_, qtic2venc_, queue3_, h264parse2_, queue4_, mp4mux_, queue5_, filesink_, nullptr)) { std::cerr << "Failed to link GStreamer elements: queue2 to filesink." << std::endl; return; }
 
     // // Link elements
     // if (!gst_element_link_many(appsrc_, app_queue_, h264parse_, decoder_, app_queue2_, waylandsink_, nullptr)) {
