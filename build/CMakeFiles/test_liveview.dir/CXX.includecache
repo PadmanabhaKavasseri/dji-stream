@@ -101,6 +101,8 @@ libavformat/avformat.h
 -
 libswscale/swscale.h
 -
+libavutil/frame.h
+-
 
 /mnt/c/Users/pkavasse/dev/dji-stream/examples/liveview/test_liveview_main.cc
 unistd.h

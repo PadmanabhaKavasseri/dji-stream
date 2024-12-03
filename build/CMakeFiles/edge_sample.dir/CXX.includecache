@@ -229,6 +229,8 @@ libavformat/avformat.h
 -
 libswscale/swscale.h
 -
+libavutil/frame.h
+-
 
 /usr/include/glib-2.0/glib-object.h
 gobject/gbinding.h

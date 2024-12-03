@@ -164,7 +164,7 @@ dji_edge_sdk_demo_BINARY_DIR:STATIC=/mnt/c/Users/pkavasse/dev/dji-stream/build
 dji_edge_sdk_demo_SOURCE_DIR:STATIC=/mnt/c/Users/pkavasse/dev/dji-stream
 
 //Dependencies for the target
-edge_sample_LIB_DEPENDS:STATIC=general;-ledgesdk;general;-lstdc++;general;-lcrypto;general;-lssh2;general;gstreamer-1.0;general;gobject-2.0;general;glib-2.0;general;avcodec;general;avformat;general;swscale;
+edge_sample_LIB_DEPENDS:STATIC=general;-ledgesdk;general;-lstdc++;general;-lcrypto;general;-lssh2;general;gstreamer-1.0;general;gobject-2.0;general;glib-2.0;general;avcodec;general;avformat;general;swscale;general;avutil;
 
 
 ########################
@@ -296,10 +296,10 @@ FFMPEG_CFLAGS_OTHER:INTERNAL=
 FFMPEG_FOUND:INTERNAL=1
 FFMPEG_INCLUDEDIR:INTERNAL=
 FFMPEG_INCLUDE_DIRS:INTERNAL=/usr/include/x86_64-linux-gnu
-FFMPEG_LDFLAGS:INTERNAL=-lavcodec;-lavformat;-lswscale
+FFMPEG_LDFLAGS:INTERNAL=-lavcodec;-lavformat;-lswscale;-lavutil
 FFMPEG_LDFLAGS_OTHER:INTERNAL=
 FFMPEG_LIBDIR:INTERNAL=
-FFMPEG_LIBRARIES:INTERNAL=avcodec;avformat;swscale
+FFMPEG_LIBRARIES:INTERNAL=avcodec;avformat;swscale;avutil
 FFMPEG_LIBRARY_DIRS:INTERNAL=
 FFMPEG_LIBS:INTERNAL=
 FFMPEG_LIBS_L:INTERNAL=
@@ -328,6 +328,10 @@ FFMPEG_libavformat_INCLUDEDIR:INTERNAL=/usr/include/x86_64-linux-gnu
 FFMPEG_libavformat_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
 FFMPEG_libavformat_PREFIX:INTERNAL=/usr
 FFMPEG_libavformat_VERSION:INTERNAL=57.83.100
+FFMPEG_libavutil_INCLUDEDIR:INTERNAL=/usr/include/x86_64-linux-gnu
+FFMPEG_libavutil_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+FFMPEG_libavutil_PREFIX:INTERNAL=/usr
+FFMPEG_libavutil_VERSION:INTERNAL=55.78.100
 FFMPEG_libswscale_INCLUDEDIR:INTERNAL=/usr/include/x86_64-linux-gnu
 FFMPEG_libswscale_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
 FFMPEG_libswscale_PREFIX:INTERNAL=/usr
@@ -370,7 +374,7 @@ GSTREAMER_gstreamer-1.0_PREFIX:INTERNAL=
 GSTREAMER_gstreamer-1.0_VERSION:INTERNAL=
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
-__pkg_config_arguments_FFMPEG:INTERNAL=REQUIRED;libavcodec;libavformat;libswscale
+__pkg_config_arguments_FFMPEG:INTERNAL=REQUIRED;libavcodec;libavformat;libswscale;libavutil
 __pkg_config_arguments_GSTREAMER:INTERNAL=REQUIRED;gstreamer-1.0
 __pkg_config_checked_FFMPEG:INTERNAL=1
 __pkg_config_checked_GSTREAMER:INTERNAL=1

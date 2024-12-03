@@ -11,7 +11,8 @@ set(CMAKE_EXE_LINKER_FLAGS "-pthread")
 set(COMMON_CXX_FLAGS "-std=c++14 -pthread")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMMON_CXX_FLAGS} -fprofile-arcs -ftest-coverage -Wno-deprecated-declarations")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage -lgcov")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread -fprofile-arcs -ftest-coverage -lgcov")
+
 
 add_definitions(-D_GNU_SOURCE)
 

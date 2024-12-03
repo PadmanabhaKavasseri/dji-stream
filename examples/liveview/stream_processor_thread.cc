@@ -177,7 +177,52 @@ void StreamProcessorThread::InputStream(const uint8_t* data, size_t length) {
     decode_vector_cv_.notify_one();
 }
 
-void DecodeFrame(const uint8_t *data, size_t length){
+void StreamProcessorThread::DecodeFrame(const uint8_t *data, size_t length){
+
+    std::cout << "StreamProcessorThread::DecodeFrame: data size: " << length << std::endl;
+    const uint8_t *pData = data;
+    int remainingLen = length;
+    int processedLen = 0;
+
+    std::lock_guard<std::mutex> l(decode_mutex);
+    AVPacket pkt;
+    av_init_packet(&pkt);
+
+    while (remainingLen > 0) {
+        if (!pCodecParserCtx || !pCodecCtx) {
+            break;
+        }
+        processedLen = av_parser_parse2(
+            pCodecParserCtx, pCodecCtx, &pkt.data, &pkt.size, pData,
+            remainingLen, AV_NOPTS_VALUE, AV_NOPTS_VALUE, AV_NOPTS_VALUE);
+        remainingLen -= processedLen;
+        pData += processedLen;
+
+        if (pkt.size > 0) {
+            int gotPicture = 0;
+            avcodec_decode_video2(pCodecCtx, pFrameYUV, &gotPicture, &pkt);
+
+            if (!gotPicture) {
+                continue;
+            } else {
+                if (pFrameYUV->width != decode_width ||
+                    pFrameYUV->height != decode_hight) {
+                    decode_width = pFrameYUV->width;
+                    decode_hight = pFrameYUV->height;
+                    if (nullptr != pSwsCtx) {
+                        sws_freeContext(pSwsCtx);
+                        pSwsCtx = nullptr;
+                    }
+                    INFO("New H264 Width: %d, Height: %d", decode_width,
+                         decode_hight);
+                }
+            }
+        }
+    }
+
+
+
+
 
 }
 
@@ -193,6 +238,8 @@ void StreamProcessorThread::InitDecoder(){
     pCodecCtx->thread_count = 4;
     auto ret = avcodec_open2(pCodecCtx, pCodec, nullptr);
     pFrameYUV = av_frame_alloc();
+    pSwsCtx = nullptr;
+
     std::cout << "Init Decoder!!!!!!!!!!!!" << std::endl;
 }
 
@@ -256,6 +303,7 @@ void StreamProcessorThread::ImageProcess() {
         // Push the data into the GStreamer appsrc
         // PushDataToAppsrc(appsrc_data);
         // WriteDataToFile(appsrc_data);
+        DecodeFrame(decode_data.data(), decode_data.size());
 
         //should call decoder here which calls push to appsrc inside
         //maybe in here?

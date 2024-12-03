@@ -128,10 +128,14 @@ class StreamProcessorThread {
     
     std::ofstream outFile;
 
+    std::mutex decode_mutex;
     AVCodecContext *pCodecCtx = nullptr;
     const AVCodec *pCodec = nullptr;
     AVCodecParserContext *pCodecParserCtx = nullptr;
     AVFrame *pFrameYUV = nullptr;
+    SwsContext *pSwsCtx = nullptr;
+    int32_t decode_width;
+    int32_t decode_hight;
 
 };
 
