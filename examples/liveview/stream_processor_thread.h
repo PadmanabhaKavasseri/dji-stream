@@ -82,6 +82,7 @@ class StreamProcessorThread {
     int32_t Stop();
 
     void SetupPipeline();
+    void create_pipe();
 
     void PushFrameToAppsrc(AVFrame *frame);
 
