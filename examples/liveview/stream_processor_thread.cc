@@ -36,6 +36,7 @@ using namespace edge_sdk;
 
 namespace edge_app {
 
+/*
 void StreamProcessorThread::SetupPipeline(){
     // Initialize GStreamer
     gst_init(nullptr, nullptr);
@@ -80,6 +81,93 @@ void StreamProcessorThread::SetupPipeline(){
     gst_element_set_state(pipeline_, GST_STATE_PLAYING);
 
 }
+*/
+
+void StreamProcessorThread::SetupPipeline() {
+    // Initialize GStreamer
+    gst_init(nullptr, nullptr);
+
+    // Create pipeline
+    pipeline_ = gst_pipeline_new("video_pipeline");
+    if (!pipeline_) {
+        std::cerr << "Failed to create pipeline." << std::endl;
+        return;
+    }
+
+    // Create elements
+    appsrc_ = gst_element_factory_make("appsrc", "app_src");
+    videoconvert_ = gst_element_factory_make("videoconvert", "video_convert");
+    tee_ = gst_element_factory_make("tee", "split");
+    queue1_ = gst_element_factory_make("queue", "queue1");
+    qtimetamux_ = gst_element_factory_make("qtimetamux", "metamux");
+    queue2_ = gst_element_factory_make("queue", "queue2");
+    qtioverlay_ = gst_element_factory_make("qtioverlay", "overlay");
+    queue3_ = gst_element_factory_make("queue", "queue3");
+    waylandsink_ = gst_element_factory_make("waylandsink", "wayland_sink");
+    queue4_ = gst_element_factory_make("queue", "queue4");
+    qtimlvconverter_ = gst_element_factory_make("qtimlvconverter", "mlv_converter");
+    queue5_ = gst_element_factory_make("queue", "queue5");
+    qtimltflite_ = gst_element_factory_make("qtimltflite", "tflite");
+    queue6_ = gst_element_factory_make("queue", "queue6");
+    qtimlvdetection_ = gst_element_factory_make("qtimlvdetection", "mlv_detection");
+
+    // Check if elements were created successfully
+    if (!appsrc_ || !videoconvert_ || !tee_ || !queue1_ || !qtimetamux_ || !queue2_ || !qtioverlay_ || !queue3_ || !waylandsink_ || !queue4_ || !qtimlvconverter_ || !queue5_ || !qtimltflite_ || !queue6_ || !qtimlvdetection_) {
+        std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
+        return;
+    }
+
+    // Set appsrc properties
+    GstCaps *caps = gst_caps_new_simple(
+        "video/x-raw",
+        "format", G_TYPE_STRING, "I420", // YUV format
+        "width", G_TYPE_INT, 1920,       // Set your width
+        "height", G_TYPE_INT, 1080,      // Set your height
+        "framerate", GST_TYPE_FRACTION, 30, 1, // Example framerate
+        nullptr
+    );
+    g_object_set(appsrc_, "caps", caps, nullptr);
+    gst_caps_unref(caps);
+    g_object_set(appsrc_, "block", FALSE, nullptr);
+
+    g_object_set(waylandsink_, "fullscreen", TRUE, "sync", FALSE, nullptr);
+
+    // Add elements to the pipeline
+    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, videoconvert_, tee_, queue1_, qtimetamux_, queue2_, qtioverlay_, queue3_, waylandsink_, queue4_, qtimlvconverter_, queue5_, qtimltflite_, queue6_, qtimlvdetection_, nullptr);
+
+    // Link elements
+    if (!gst_element_link_many(appsrc_, videoconvert_, nullptr)) {
+        std::cerr << "Failed to link GStreamer elements: appsrc to videoconvert." << std::endl;
+        return;
+    }
+
+    GstCaps *video_caps = gst_caps_new_simple(
+        "video/x-raw",
+        "format", G_TYPE_STRING, "NV12",
+        nullptr
+    );
+
+    if (!gst_element_link_filtered(videoconvert_, tee_, video_caps)) {
+        std::cerr << "Failed to link videoconvert to tee with caps." << std::endl;
+        return;
+    }
+
+    gst_caps_unref(video_caps);
+
+    if (!gst_element_link_many(tee_, queue1_, qtimetamux_, queue2_, qtioverlay_, queue3_, waylandsink_, nullptr)) {
+        std::cerr << "Failed to link elements: tee to waylandsink." << std::endl;
+        return;
+    }
+
+    if (!gst_element_link_many(tee_, queue4_, qtimlvconverter_, queue5_, qtimltflite_, queue6_, qtimlvdetection_, qtimetamux_, nullptr)) {
+        std::cerr << "Failed to link elements: tee to metamux." << std::endl;
+        return;
+    }
+
+    // Set the pipeline to playing state
+    gst_element_set_state(pipeline_, GST_STATE_PLAYING);
+}
+
 
 void StreamProcessorThread::WriteDataToFile(const std::vector<uint8_t>& data){
     // Write the data to the file

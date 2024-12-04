@@ -111,21 +111,22 @@ class StreamProcessorThread {
     std::shared_ptr<StreamDecoder> stream_decoder_;
     std::shared_ptr<ImageProcessorThread> image_processor_thread_;
 
-    GstElement *appsrc_ = nullptr;
-    GstElement *app_queue_ = nullptr;
-    GstElement *app_queue2_ = nullptr;
-    GstElement *h264parse_ = nullptr;
-    GstElement *decoder_ = nullptr;
-    GstElement *pipeline_ = nullptr;
-    GstElement *waylandsink_ = nullptr;
-    GstElement *videoconvert_ = nullptr;
-    GstElement *qtic2venc_ = nullptr;
-    GstElement *queue3_ = nullptr;
-    GstElement *h264parse2_ = nullptr;
-    GstElement *queue4_ = nullptr;
-    GstElement *mp4mux_ = nullptr;
-    GstElement *queue5_ = nullptr;
-    GstElement *filesink_ = nullptr;
+    GstElement *pipeline_;
+    GstElement *appsrc_; 
+    GstElement *videoconvert_; 
+    GstElement *tee_;
+    GstElement *queue1_; 
+    GstElement *qtimetamux_; 
+    GstElement *queue2_; 
+    GstElement *qtioverlay_; 
+    GstElement *queue3_; 
+    GstElement *waylandsink_; 
+    GstElement *queue4_; 
+    GstElement *qtimlvconverter_; 
+    GstElement *queue5_; 
+    GstElement *qtimltflite_; 
+    GstElement *queue6_; 
+    GstElement *qtimlvdetection_;
     
     std::ofstream outFile;
 
