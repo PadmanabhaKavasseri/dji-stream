@@ -66,6 +66,7 @@ void StreamProcessorThread::SetupPipeline(){
     gst_caps_unref(caps);
     g_object_set(appsrc_, "block", FALSE, nullptr);
 
+    g_object_set(waylandsink_, "fullscreen", TRUE, nullptr);
     // Add elements to the pipeline
     gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, waylandsink_, nullptr);
 
