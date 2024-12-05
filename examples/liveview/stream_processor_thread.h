@@ -82,7 +82,6 @@ class StreamProcessorThread {
     int32_t Stop();
 
     void SetupPipeline();
-    void create_pipe();
 
     void PushFrameToAppsrc(AVFrame *frame);
 
@@ -114,7 +113,7 @@ class StreamProcessorThread {
 
     GstElement *pipeline_;
     GstElement *appsrc_; 
-    GstElement *videoconvert_; 
+    GstElement *queue_; 
     GstElement *tee_;
     GstElement *queue1_; 
     GstElement *qtimetamux_; 
@@ -136,9 +135,10 @@ class StreamProcessorThread {
     const AVCodec *pCodec = nullptr;
     AVCodecParserContext *pCodecParserCtx = nullptr;
     AVFrame *pFrameYUV = nullptr;
+    AVFrame *pFrameNV12 = nullptr;
     SwsContext *pSwsCtx = nullptr;
 
-    int32_t decode_width; 
+    int32_t decode_width;
     int32_t decode_hight;
 
 };
