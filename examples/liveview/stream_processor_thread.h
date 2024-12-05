@@ -85,6 +85,8 @@ class StreamProcessorThread {
 
     void PushFrameToAppsrc(AVFrame *frame);
 
+    void PushDataToAppsrc(const std::vector<uint8_t>& data);
+
     void WriteDataToFile(const std::vector<uint8_t>& data);
 
     void InitDecoder();
@@ -112,8 +114,10 @@ class StreamProcessorThread {
     std::shared_ptr<ImageProcessorThread> image_processor_thread_;
 
     GstElement *pipeline_;
-    GstElement *appsrc_; 
-    GstElement *queue_; 
+    GstElement *appsrc_;
+    GstElement *queue_;
+    GstElement *h264parse_appsrc_;
+    GstElement *qtic2vdec_;
     GstElement *tee_;
     GstElement *queue1_; 
     GstElement *qtimetamux_; 
@@ -127,7 +131,6 @@ class StreamProcessorThread {
     GstElement *qtimltflite_; 
     GstElement *queue6_; 
     GstElement *qtimlvdetection_;
-    GstElement *videoconvert_;
     
     std::ofstream outFile;
 
@@ -136,10 +139,9 @@ class StreamProcessorThread {
     const AVCodec *pCodec = nullptr;
     AVCodecParserContext *pCodecParserCtx = nullptr;
     AVFrame *pFrameYUV = nullptr;
-    AVFrame *pFrameNV12 = nullptr;
     SwsContext *pSwsCtx = nullptr;
 
-    int32_t decode_width;
+    int32_t decode_width; 
     int32_t decode_hight;
 
 };

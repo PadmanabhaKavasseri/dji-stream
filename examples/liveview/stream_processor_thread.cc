@@ -30,7 +30,6 @@
 
 #include <iostream>
 
-
 #define DEFAULT_CONSTANTS_YOLOV5 \
     "YoloV5,q-offsets=<3.0>,q-scales=<0.005047998391091824>;"
 
@@ -53,73 +52,29 @@ typedef enum {
 } GstMLTFLiteDelegate;
 
 
-
 using namespace edge_sdk;
 
 namespace edge_app {
 
-/*
-void StreamProcessorThread::SetupPipeline(){
-    // Initialize GStreamer
-    gst_init(nullptr, nullptr);
-
-    // Create pipeline
-    pipeline_ = gst_pipeline_new("video_pipeline");
-    if (!pipeline_) {
-        std::cerr << "Failed to create pipeline." << std::endl;
-    }
-
-    //create elements
-    appsrc_ = gst_element_factory_make("appsrc", "app_src");
-    app_queue_ = gst_element_factory_make("queue", "app_queue");
-    waylandsink_ = gst_element_factory_make("waylandsink", "wayland_sink");
-
-    // Check if elements were created successfully 
-    if (!appsrc_ || !app_queue_ || !waylandsink_) { 
-        std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
-         return; 
-     }
-    // Set appsrc properties 
-    GstCaps *caps = gst_caps_new_simple( "video/x-raw", "format", G_TYPE_STRING, "I420", // YUV format 
-        "width", G_TYPE_INT, 1920, // Set your width 
-        "height", G_TYPE_INT, 1080, // Set your height 
-        "framerate", GST_TYPE_FRACTION, 30, 1, // Example framerate 
-        nullptr );
-    g_object_set(appsrc_, "caps", caps, nullptr);
-    gst_caps_unref(caps);
-    g_object_set(appsrc_, "block", FALSE, nullptr);
-
-    g_object_set(waylandsink_, "fullscreen", TRUE, nullptr);
-    // Add elements to the pipeline
-    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, app_queue_, waylandsink_, nullptr);
-
-    // Link elements 
-    if (!gst_element_link_many(appsrc_, app_queue_, waylandsink_, nullptr)) { 
-        std::cerr << "Failed to link GStreamer elements: appsrc to waylandsink." << std::endl; 
-        return;
-    }
-
-    // Set the pipeline to playing state
-    gst_element_set_state(pipeline_, GST_STATE_PLAYING);
-
-}
-*/
-
 void StreamProcessorThread::SetupPipeline() {
     // Initialize GStreamer
     gst_init(nullptr, nullptr);
-
+    gchar temp_str[1000];
     // Create pipeline
     pipeline_ = gst_pipeline_new("video_pipeline");
+
     if (!pipeline_) {
         std::cerr << "Failed to create pipeline." << std::endl;
         return;
     }
 
+    GstCaps *pad_filter = NULL;
     // Create elements
     appsrc_ = gst_element_factory_make("appsrc", "app_src");
-    videoconvert_ = gst_element_factory_make("videoconvert", "video_convert");
     queue_ = gst_element_factory_make("queue", "queue0");
+    h264parse_appsrc_ = gst_element_factory_make ("h264parse", "h264parse_appsrc");
+    qtic2vdec_ = gst_element_factory_make ("qtic2vdec", "qtic2vdec");
+    //videoconvert_ = gst_element_factory_make("videoconvert", "video_convert");
     tee_ = gst_element_factory_make("tee", "split");
     queue1_ = gst_element_factory_make("queue", "queue1");
     qtimetamux_ = gst_element_factory_make("qtimetamux", "metamux");
@@ -135,60 +90,58 @@ void StreamProcessorThread::SetupPipeline() {
     qtimlvdetection_ = gst_element_factory_make("qtimlvdetection", "mlv_detection");
 
     // Check if elements were created successfully
-    if (!appsrc_ || !videoconvert_ || !queue_ || !tee_ || !queue1_ || !qtimetamux_ || !queue2_ || !qtioverlay_ || !queue3_ || !waylandsink_ || !queue4_ || !qtimlvconverter_ || !queue5_ || !qtimltflite_ || !queue6_ || !qtimlvdetection_) {
+    if (!appsrc_ || !h264parse_appsrc_ || !queue_ || !qtic2vdec_ || !tee_ || !queue1_ || !qtimetamux_ || !queue2_ || !qtioverlay_ || !queue3_ || !waylandsink_ || !queue4_ || !qtimlvconverter_ || !queue5_ || !qtimltflite_ || !queue6_ || !qtimlvdetection_) {
         std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
         return;
     }
 
-    // Set appsrc properties
-    GstCaps *caps = gst_caps_new_simple(
-        "video/x-raw",
-        "format", G_TYPE_STRING, "NV12", // YUV format
-        "width", G_TYPE_INT, 1920,       // Set your width
-        "height", G_TYPE_INT, 1080,      // Set your height
-        "framerate", GST_TYPE_FRACTION, 30, 1, // Example framerate
-        nullptr
-    );
-    g_object_set(appsrc_, "caps", caps, nullptr);
-    gst_caps_unref(caps);
-    g_object_set(appsrc_, "block", FALSE, nullptr);
+    snprintf (temp_str, sizeof (temp_str),
+      "video/x-h264,stream-format=byte-stream,framerate=30/1");
+    pad_filter = gst_caps_from_string (temp_str);
+
+    g_object_set (G_OBJECT (appsrc_), "caps", pad_filter, NULL);
+
+    gst_caps_unref(pad_filter);
+
+    g_object_set (G_OBJECT (appsrc_), "max-buffers", 100, NULL);
+    g_object_set(appsrc_, "block", TRUE, nullptr);
 
     g_object_set(waylandsink_, "fullscreen", TRUE, "sync", FALSE, nullptr);
 
     // Add elements to the pipeline
-    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, videoconvert_, queue_, tee_, queue1_, qtimetamux_, queue2_, qtioverlay_, queue3_, waylandsink_, queue4_, qtimlvconverter_, queue5_, qtimltflite_, queue6_, qtimlvdetection_, nullptr);
+    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, queue_, h264parse_appsrc_, qtic2vdec_, tee_, queue1_, qtimetamux_, queue2_, qtioverlay_, queue3_, waylandsink_, queue4_, qtimlvconverter_, queue5_, qtimltflite_, queue6_, qtimlvdetection_, nullptr);
 
     // Link elements
-    if (!gst_element_link_many(appsrc_, videoconvert_, queue_, tee_, nullptr)) {
+    if (!gst_element_link_many(appsrc_, h264parse_appsrc_, queue_, qtic2vdec_, queue1_, tee_, queue4_, qtimetamux_, queue2_, qtioverlay_, queue3_, waylandsink_, nullptr)) {
         std::cerr << "Failed to link GStreamer elements: appsrc to videoconvert." << std::endl;
         return;
     }
-
+/*
     GstCaps *video_caps = gst_caps_new_simple(
         "video/x-raw",
         "format", G_TYPE_STRING, "NV12",
         nullptr
     );
 
-    if (!gst_element_link_filtered(videoconvert_, tee_, video_caps)) {
+    if (!gst_element_link_filtered(h264parse_appsrc__, qtic2vdec_, video_caps)) {
         std::cerr << "Failed to link videoconvert to tee with caps." << std::endl;
         return;
     }
 
     gst_caps_unref(video_caps);
+*/
+  
 
-    if (!gst_element_link_many(tee_, queue1_, qtimetamux_, queue2_, qtioverlay_, queue3_, waylandsink_, nullptr)) {
-        std::cerr << "Failed to link elements: tee to waylandsink." << std::endl;
-        return;
-    }
-
-    if (!gst_element_link_many(tee_, queue4_, qtimlvconverter_, queue5_, qtimltflite_, queue6_, qtimlvdetection_, nullptr))
+    if (!gst_element_link_many(tee_, qtimlvconverter_, queue5_, qtimltflite_, queue6_, qtimlvdetection_, nullptr))
     {
         std::cerr << "Failed to link elements: tee to metamux." << std::endl;
         return;
     }
 
-    GstCaps *text_caps = gst_caps_new_simple("text/x-raw", "format", G_TYPE_STRING, "utf8", nullptr);
+    GstCaps *text_caps = gst_caps_new_simple(
+        "text/x-raw",
+        nullptr
+    );
 
     if (!gst_element_link_filtered(qtimlvdetection_, qtimetamux_, text_caps)) {
         std::cerr << "Failed to link videoconvert to tee with caps." << std::endl;
@@ -224,6 +177,24 @@ void StreamProcessorThread::WriteDataToFile(const std::vector<uint8_t>& data){
     // Check if the write operation succeeded
     if (!outFile) {
         throw std::runtime_error("Error occurred while writing data to the file.");
+    }
+}
+
+void StreamProcessorThread::PushDataToAppsrc(const std::vector<uint8_t>& data){
+    if (!appsrc_) {
+        std::cerr << "Error: appsrc is not initialized." << std::endl;
+        return;
+    }
+    // std::cout << "StreamProcessorThread::PushDataToAppsrc: data: " << data.size() << std::endl;
+    // Create a new GStreamer buffer and fill it with the data
+    GstBuffer *buffer = gst_buffer_new_allocate(nullptr, data.size(), nullptr);
+    gst_buffer_fill(buffer, 0, data.data(), data.size());
+    // Push the buffer into the appsrc element
+    GstFlowReturn ret;
+    g_signal_emit_by_name(appsrc_, "push-buffer", buffer, &ret);
+    gst_buffer_unref(buffer);
+    if (ret != GST_FLOW_OK) {
+        std::cerr << "Failed to push buffer to appsrc. GstFlowReturn: " << ret << std::endl;
     }
 }
 
@@ -337,21 +308,6 @@ void StreamProcessorThread::DecodeFrame(const uint8_t *data, size_t length){
                     break; 
                 } 
 
-                pFrameNV12->format = AV_PIX_FMT_NV12;
-                pFrameNV12->width = pFrameYUV->width;
-                pFrameNV12->height = pFrameYUV->height;
-                av_frame_get_buffer(pFrameNV12, 32);
-
-                struct SwsContext *sws_ctx = sws_getContext(
-                    pFrameYUV->width, pFrameYUV->height, pCodecCtx->pix_fmt,
-                    pFrameNV12->width, pFrameNV12->height, AV_PIX_FMT_NV12,
-                    SWS_BILINEAR, NULL, NULL, NULL);
-                sws_scale(sws_ctx,
-                    (const uint8_t * const *)pFrameYUV->data, pFrameYUV->linesize,
-                    0, pFrameYUV->height, pFrameNV12->data, pFrameNV12->linesize);
-
-                sws_freeContext(sws_ctx);
-
                 if (pFrameYUV->width != decode_width || pFrameYUV->height != decode_hight) { 
                     decode_width = pFrameYUV->width; 
                     decode_hight = pFrameYUV->height; 
@@ -382,7 +338,6 @@ void StreamProcessorThread::InitDecoder(){
     pCodecCtx->thread_count = 4;
     auto ret = avcodec_open2(pCodecCtx, pCodec, nullptr);
     pFrameYUV = av_frame_alloc();
-    pFrameNV12 = av_frame_alloc();
     pSwsCtx = nullptr;
 
     std::cout << "Init Decoder!!!!!!!!!!!!" << std::endl;
@@ -448,7 +403,8 @@ void StreamProcessorThread::ImageProcess() {
         // Push the data into the GStreamer appsrc
         // PushDataToAppsrc(appsrc_data);
         // WriteDataToFile(appsrc_data);
-        DecodeFrame(decode_data.data(), decode_data.size());
+        PushDataToAppsrc(appsrc_data);
+        //DecodeFrame(decode_data.data(), decode_data.size());
 
         //should call decoder here which calls push to appsrc inside
         //maybe in here?
