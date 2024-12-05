@@ -127,6 +127,7 @@ class StreamProcessorThread {
     GstElement *qtimltflite_; 
     GstElement *queue6_; 
     GstElement *qtimlvdetection_;
+    GstElement *videoconvert_;
     
     std::ofstream outFile;
 

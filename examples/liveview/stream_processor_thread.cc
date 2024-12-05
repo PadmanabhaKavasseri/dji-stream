@@ -118,7 +118,7 @@ void StreamProcessorThread::SetupPipeline() {
 
     // Create elements
     appsrc_ = gst_element_factory_make("appsrc", "app_src");
-    // videoconvert_ = gst_element_factory_make("videoconvert", "video_convert");
+    videoconvert_ = gst_element_factory_make("videoconvert", "video_convert");
     queue_ = gst_element_factory_make("queue", "queue0");
     tee_ = gst_element_factory_make("tee", "split");
     queue1_ = gst_element_factory_make("queue", "queue1");
@@ -135,7 +135,7 @@ void StreamProcessorThread::SetupPipeline() {
     qtimlvdetection_ = gst_element_factory_make("qtimlvdetection", "mlv_detection");
 
     // Check if elements were created successfully
-    if (!appsrc_ || !queue_ || !tee_ || !queue1_ || !qtimetamux_ || !queue2_ || !qtioverlay_ || !queue3_ || !waylandsink_ || !queue4_ || !qtimlvconverter_ || !queue5_ || !qtimltflite_ || !queue6_ || !qtimlvdetection_) {
+    if (!appsrc_ || !videoconvert_ || !queue_ || !tee_ || !queue1_ || !qtimetamux_ || !queue2_ || !qtioverlay_ || !queue3_ || !waylandsink_ || !queue4_ || !qtimlvconverter_ || !queue5_ || !qtimltflite_ || !queue6_ || !qtimlvdetection_) {
         std::cerr << "Failed to create one or more GStreamer elements." << std::endl;
         return;
     }
@@ -156,14 +156,14 @@ void StreamProcessorThread::SetupPipeline() {
     g_object_set(waylandsink_, "fullscreen", TRUE, "sync", FALSE, nullptr);
 
     // Add elements to the pipeline
-    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, queue_, tee_, queue1_, qtimetamux_, queue2_, qtioverlay_, queue3_, waylandsink_, queue4_, qtimlvconverter_, queue5_, qtimltflite_, queue6_, qtimlvdetection_, nullptr);
+    gst_bin_add_many(GST_BIN(pipeline_), appsrc_, videoconvert_, queue_, tee_, queue1_, qtimetamux_, queue2_, qtioverlay_, queue3_, waylandsink_, queue4_, qtimlvconverter_, queue5_, qtimltflite_, queue6_, qtimlvdetection_, nullptr);
 
     // Link elements
-    if (!gst_element_link_many(appsrc_, queue_, tee_, nullptr)) {
+    if (!gst_element_link_many(appsrc_, videoconvert_, queue_, tee_, nullptr)) {
         std::cerr << "Failed to link GStreamer elements: appsrc to videoconvert." << std::endl;
         return;
     }
-/*
+
     GstCaps *video_caps = gst_caps_new_simple(
         "video/x-raw",
         "format", G_TYPE_STRING, "NV12",
@@ -176,7 +176,7 @@ void StreamProcessorThread::SetupPipeline() {
     }
 
     gst_caps_unref(video_caps);
-*/
+
     if (!gst_element_link_many(tee_, queue1_, qtimetamux_, queue2_, qtioverlay_, queue3_, waylandsink_, nullptr)) {
         std::cerr << "Failed to link elements: tee to waylandsink." << std::endl;
         return;
@@ -188,10 +188,7 @@ void StreamProcessorThread::SetupPipeline() {
         return;
     }
 
-    GstCaps *text_caps = gst_caps_new_simple(
-        "text/x-raw",
-        nullptr
-    );
+    GstCaps *text_caps = gst_caps_new_simple("text/x-raw", "format", G_TYPE_STRING, "utf8", nullptr);
 
     if (!gst_element_link_filtered(qtimlvdetection_, qtimetamux_, text_caps)) {
         std::cerr << "Failed to link videoconvert to tee with caps." << std::endl;
